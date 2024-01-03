@@ -6,4 +6,4 @@ dash
 dash_table
 schedule
 pandas_ta
-gunicorn
+gunicorn==19.7.1
