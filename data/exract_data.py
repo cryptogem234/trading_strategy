@@ -1,4 +1,8 @@
+import appdirs as ad
+ad.user_cache_dir = lambda *args: "/tmp"
+
 import pandas as pd
+
 import yfinance as yf
 from datetime import datetime, timedelta
 pd.set_option('display.max_columns', None)
