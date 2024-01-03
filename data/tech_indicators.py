@@ -6,12 +6,10 @@ pd.set_option('display.max_rows', None)
 import numpy as np
 
 def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
-
     stock_tech_hist_data = pd.DataFrame()
     stock_tech_summ_data = pd.DataFrame()
-
-    try:
-        for i in sym_list:
+    for i in sym_list:
+        try:
             df = stock_hist_data_df.copy()
             df = df[df['ticker'] == i ]
             df.columns = map(str.lower, df.columns)
@@ -43,10 +41,10 @@ def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
             print(df.tail(3))
             stock_tech_hist_data = df.copy()
             df = df.tail(1)
-            stock_tech_summ_data = df.copy()
+            stock_tech_summ_data = df.tail(1).copy()
             print(stock_tech_summ_data)
-    except:
-        print('No Data Found')
-        print(i)
-        print(Exception)
+        except:
+            print('No Data Found')
+            print(i)
+            print(Exception)
     return stock_tech_hist_data, stock_tech_summ_data
