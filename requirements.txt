@@ -1,4 +1,4 @@
-pandas==3.8
+pandas
 yfinance
 datetime
 numpy
