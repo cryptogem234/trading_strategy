@@ -40,9 +40,11 @@ def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
             for i in hist_days_list:
                 df['MDD_' + str(i)] = -1 * df['close'].rolling(i).apply(lambda s: ((s - s.cummax()) / s.cummax()).min())
 
-            stock_tech_hist_data = stock_tech_hist_data._append(df)
+            print(df.tail(3))
+            stock_tech_hist_data = df.copy()
             df = df.tail(1)
-            stock_tech_summ_data = stock_tech_summ_data._append(df)
+            stock_tech_summ_data = df.copy()
+            print(stock_tech_summ_data)
     except:
         print('No Data Found')
         print(i)

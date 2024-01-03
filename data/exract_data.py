@@ -18,7 +18,7 @@ def get_hist_data(sym_list, start_date, end_date):
             df = df.rename(columns={'adj close': 'close'})
             df.sort_values(by=['date'])
             df['ticker'] = i
-            print(df)
+            print(df.tail(3))
             stock_hist_data_df = stock_hist_data_df._append(df)
         except:
             print(i)
