@@ -4,9 +4,7 @@ ad.user_cache_dir = lambda *args: "/tmp"
 import pandas as pd
 
 import yfinance as yf
-from datetime import datetime, timedelta
-pd.set_option('display.max_columns', None)
-pd.set_option('display.max_rows', None)
+
 
 def get_hist_data(sym_list, start_date, end_date):
 
@@ -20,6 +18,7 @@ def get_hist_data(sym_list, start_date, end_date):
             df = df.rename(columns={'adj close': 'close'})
             df.sort_values(by=['date'])
             df['ticker'] = i
+            print(df)
             stock_hist_data_df = stock_hist_data_df._append(df)
         except:
             print(i)
