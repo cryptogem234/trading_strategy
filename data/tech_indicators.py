@@ -39,11 +39,11 @@ def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
                 df['MDD_' + str(i)] = -1 * df['close'].rolling(i).apply(lambda s: ((s - s.cummax()) / s.cummax()).min())
 
             df_summary = df.tail(1)
-            stock_tech_summ_data = stock_tech_summ_data._append(df_summary)
+            stock_tech_summ_data = stock_tech_summ_data.append(df_summary)
 
         except:
             print('No Data Found')
             print(i)
             print(Exception)
-        print(stock_tech_summ_data)
+        stock_tech_summ_data.to_csv('stock_tech_summ_data.csv')
     return stock_tech_hist_data, stock_tech_summ_data
