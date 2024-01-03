@@ -18,8 +18,8 @@ def get_hist_data(sym_list, start_date, end_date):
             df = df.rename(columns={'adj close': 'close'})
             df.sort_values(by=['date'])
             df['ticker'] = i
-            stock_hist_data_df = stock_hist_data_df.append(df)
-        except:
-            print(i)
+            stock_hist_data_df = pd.concat([stock_hist_data_df, df], ignore_index=True)
+        except Exception as e:
+            print(f"Error processing {i}: {e}")
     return stock_hist_data_df
 
