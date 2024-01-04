@@ -10,6 +10,6 @@ def execute_all_strategies():
     #nothing_but_bonds_strategy = nothing_but_bonds.execute_strategy()
     russell_rat_ftlt_strategy = russell_rat_ftlt.execute_strategy()
 
-    total_strategy_summary = pd.concat([tqqq_or_not_strategy,russell_rat_ftlt_strategy], axis=0)
+    #total_strategy_summary = pd.concat([tqqq_or_not_strategy,russell_rat_ftlt_strategy], axis=0)
 
-    return  total_strategy_summary
+    return  tqqq_or_not_strategy
