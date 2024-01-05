@@ -2,8 +2,6 @@ import pandas as pd
 from data import exract_data as ed, tech_indicators as ti
 from datetime import datetime, timedelta
 from strategies.Russell_Rat_FTLT.TQQQ_or_Not import tqqq_or_not as tqn
-import numpy as np
-import os
 
 def execute_strategy():
 
@@ -20,7 +18,7 @@ def execute_strategy():
     # stock_historical_data = pd.read_csv('stock_historical_data.csv')
     # stock_historical_data = stock_historical_data[stock_historical_data['date']<='2022-10-13']
 
-    stock_tech_hist_data, stock_tech_summ_data = ti.get_technical_data(sym_list, stock_historical_data, hist_days_list)
+    stock_tech_summ_data = ti.get_technical_data(sym_list, stock_historical_data, hist_days_list)
 
     df = stock_tech_summ_data
 
