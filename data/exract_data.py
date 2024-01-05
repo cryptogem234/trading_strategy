@@ -5,7 +5,6 @@ import pandas as pd
 
 import yfinance as yf
 
-
 def get_hist_data(sym_list, start_date, end_date):
 
     stock_hist_data_df = pd.DataFrame()
