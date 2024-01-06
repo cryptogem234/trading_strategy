@@ -1,4 +1,0 @@
-strategy_name,eff_date,ticker,pct_alloc,reason
-V1a TQQQ or not - Replace UVXY w SOXS,2023-12-26 15:55:02.151942,TQQQ,100,Closing Price TQQQ > 25 SMA QQQ
-V1a TQQQ or not - Replace UVXY w SOXS,2024-01-02 13:18:41.659665,BIL,Rebalancing Required
-V1a TQQQ or not - Replace UVXY w SOXS,2024-01-02 14:31:03.505853,TQQQ,Rebalancing Required
