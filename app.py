@@ -10,74 +10,56 @@ app = dash.Dash(__name__)
 server = app.server
 
 # Initialize dataframes
-df_strategies = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker', 'action'])
-df_strategies2 = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker', 'action'])
+tqqq_or_not = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker'])
+russell_rat_ftlt = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker'])
+nothing_but_bonds = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker'])
 
-# Define layout
-app.layout = html.Div([
-    html.H1("Strategies List"),
+# Define a list of dictionaries for each table
+tables = [
+    {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button'},
+    {'id': 'russell_rat_ftlt', 'df': russell_rat_ftlt, 'button_id': 'refresh-button2'},
+    {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button3'}
+]
 
-    # Dash DataTable component for the first table
-    DataTable(
-        id='data-table',
-        columns=[{'name': col, 'id': col} for col in df_strategies.columns],
-        data=df_strategies.to_dict('records'),
-    ),
+# Define layout dynamically
+layout = [html.H1("Strategies List")]
 
-    # Button for manual refresh of the first table
-    html.Div([
-        html.Button("Refresh Data", id='refresh-button', n_clicks=0),
-        dcc.Loading(id="loading", type="circle", children=[]),
-    ]),
+# Add Dash DataTable components for each table dynamically
+for table in tables:
+    layout.extend([
+        DataTable(
+            id=table['id'],
+            columns=[{'name': col, 'id': col} for col in table['df'].columns],
+            data=table['df'].to_dict('records'),
+        ),
+        html.Div([
+            html.Button("Refresh Data", id=table['button_id'], n_clicks=0),
+            dcc.Loading(id=f"loading-{table['id']}", type="circle", children=[]),
+        ]),
+        html.Hr()  # Add a horizontal line for separation after each table
+    ])
 
-    html.Hr(),  # Add a horizontal line for separation
+# Define callbacks dynamically
+for table in tables:
+    @app.callback(
+        [Output(table['id'], 'data'),
+         Output(f"loading-{table['id']}", 'children')],
+        [Input(table['button_id'], 'n_clicks')],
+        [State(f"loading-{table['id']}", 'children')],
+        prevent_initial_call=True
+    )
+    def update_output(n_clicks, children, table=table):
+        if n_clicks > 0:
+            # Replace dashes with underscores in the table ID
+            function_name = f"execute_{table['id'].replace('-', '_')}_strategy"
+            result_df = getattr(ts, function_name)()
+            result_df = result_df.to_dict('records')
+            return result_df, []
 
-    # Dash DataTable component for the second table
-    DataTable(
-        id='another-table',
-        columns=[{'name': col, 'id': col} for col in df_strategies2.columns],
-        data=df_strategies2.to_dict('records'),
-    ),
+        return [], []
 
-    # Button for manual refresh of the second table
-    html.Div([
-        html.Button("Refresh Another Table", id='refresh-another-button', n_clicks=0),
-        dcc.Loading(id="loading-another", type="circle", children=[]),
-    ]),
-
-])
-
-# Define callbacks for the first table
-@app.callback(
-    [Output('data-table', 'data'),
-     Output('loading', 'children')],
-    [Input('refresh-button', 'n_clicks')],
-    [State('loading', 'children')],
-    prevent_initial_call=True
-)
-def update_output(n_clicks, children):
-    if n_clicks > 0:
-        result_df = ts.execute_tqqq_or_not_strategy()
-        result_df = result_df.to_dict('records')
-        return result_df, []
-
-    return [], []
-
-# Define callbacks for the second table
-@app.callback(
-    [Output('another-table', 'data'),
-     Output('loading-another', 'children')],
-    [Input('refresh-another-button', 'n_clicks')],
-    [State('loading-another', 'children')],
-    prevent_initial_call=True
-)
-def update_another_table(n_clicks, children):
-    if n_clicks > 0:
-        result_df = ts.execute_russell_rat_ftlt_strategy()
-        result_df = result_df.to_dict('records')
-        return result_df, []
-
-    return [], []
+# Assign the layout to the app
+app.layout = html.Div(layout)
 
 # Run the app
 if __name__ == '__main__':
