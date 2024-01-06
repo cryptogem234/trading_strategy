@@ -13,12 +13,14 @@ server = app.server
 tqqq_or_not = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker'])
 russell_rat_ftlt = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker'])
 nothing_but_bonds = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker'])
+short_volatility_svxy = pd.DataFrame(columns=['strategy_name', 'eff_date', 'ticker'])
 
 # Define a list of dictionaries for each table
 tables = [
     {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button'},
     {'id': 'russell_rat_ftlt', 'df': russell_rat_ftlt, 'button_id': 'refresh-button2'},
-    {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button3'}
+    {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button3'},
+    {'id': 'short_volatility_svxy', 'df': nothing_but_bonds, 'button_id': 'refresh-button4'}
 ]
 
 # Define layout dynamically
@@ -31,6 +33,7 @@ for table in tables:
             id=table['id'],
             columns=[{'name': col, 'id': col} for col in table['df'].columns],
             data=table['df'].to_dict('records'),
+            style_cell={'minWidth': '100px', 'maxWidth': '100px', 'textAlign': 'left'},
         ),
         html.Div([
             html.Button("Refresh Data", id=table['button_id'], n_clicks=0),
