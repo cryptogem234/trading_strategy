@@ -5,7 +5,7 @@ from strategies.RAT_FTLT.TQQQ_or_Not import tqqq_or_not as tqn
 
 def execute_strategy():
 
-    strategy_name = 'RAT FTLT'
+    strategy_name = 'RAT FTLT Banks, Small Cap, Russell, HealthCare, Real Estate'
     list = ['SPY','SHY','TMF','IEF','IWM','UVXY','TQQQ','BIL','QQQ','BND','TLT']
     bank = ['FAS','FAZ']
     house = ['DRN','DRV']
