@@ -10,7 +10,7 @@ from strategies.Nothing_But_Bonds.IEF_Macro_Momentum import ief_momentum_string 
 
 def execute_strategy():
 
-    strategy_name = 'Nothing But Bonds'
+    strategy_name = 'Bonds Momentum - IEF, TLT, TMF, TMV Momentums'
     sym_list = ['TMF', 'TMV', 'TQQQ', 'BND', 'TLT', 'SHV', 'SHY', 'IEF', 'UBT']
     end_date = datetime.today()
     start_date = end_date - timedelta(days=1000)
