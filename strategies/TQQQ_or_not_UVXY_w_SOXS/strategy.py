@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 def execute_strategy():
 
-    strategy_name = 'V1a TQQQ or not - Replace UVXY w SOXS'
+    strategy_name = 'TQQQ OR Not Short Via SOXS'
     sym_list = ['TQQQ', 'SOXS', 'SOXL', 'BIL', 'UVXY', 'QQQ', 'TMF', 'SPY', 'BND', 'TLT', 'IEF']
     end_date = datetime.today()
     start_date = end_date - timedelta(days=300)
