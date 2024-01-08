@@ -5,14 +5,16 @@ from strategies.RAT_FTLT.TQQQ_or_Not import tqqq_or_not as tqn
 
 def execute_strategy():
 
-    strategy_name = 'RAT FTLT Banks, Small Cap, Russell, HealthCare, Real Estate'
+    strategy_name = 'RAT FTLT Banks, Small Cap, Russell, HealthCare, Real Estate, High Beta, Foreign'
     list = ['SPY','SHY','TMF','IEF','IWM','UVXY','TQQQ','BIL','QQQ','BND','TLT']
     bank = ['FAS','FAZ']
     house = ['DRN','DRV']
     smallcap = ['TNA','TZA']
     lab = ['LABU','LABD']
     russell = ['URTY','SRTY']
-    sym_list = list + bank + house + smallcap + lab + russell
+    beta = ['HIBL', 'HIBS']
+    foreign = ['EDC', 'EDZ']
+    sym_list = list + bank + house + smallcap + lab + russell + beta + foreign
 
     end_date = datetime.today()
     start_date = end_date - timedelta(days=1000)
@@ -29,21 +31,21 @@ def execute_strategy():
     df = stock_tech_summ_data
 
     if df['RSI_10'][df['ticker']=='SPY'].values[0] > 71:
-        ### Russell Rat FTLT - TMF Check ###
+        ### TMF Check ###
         if df['SMR_600'][df['ticker'] == 'SHY'].values[0] < 0:
             if df['RSI_14'][df['ticker'] == 'TMF'].values[0] > 60:
                 if df['RSI_11'][df['ticker'] == 'IEF'].values[0] < df['RSI_16'][df['ticker'] == 'IWM'].values[0]:
-                    alloc_tkr = ['FAS','DRN','TNA','LABU','URTY']
+                    alloc_tkr = ['FAS','DRN','TNA','LABU','URTY','HIBL', 'EDC']
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
                 else:
-                    alloc_tkr = ['FAZ', 'DRV', 'TZA','LABD','SRTY']
+                    alloc_tkr = ['FAZ', 'DRV', 'TZA','LABD','SRTY','HIBS', 'EDZ']
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
             else:
                 if df['RSI_11'][df['ticker'] == 'IEF'].values[0] > df['RSI_16'][df['ticker'] == 'IWM'].values[0]:
-                    alloc_tkr = ['FAS', 'DRN', 'TNA', 'LABU', 'URTY']
+                    alloc_tkr = ['FAS', 'DRN', 'TNA', 'LABU', 'URTY', 'HIBL', 'EDC']
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
                 else:
-                    alloc_tkr = ['FAZ', 'DRV', 'TZA', 'LABD', 'SRTY']
+                    alloc_tkr = ['FAZ', 'DRV', 'TZA', 'LABD', 'SRTY', 'HIBS', 'EDZ']
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
         else:
             ###TQQQ Or Not ###
@@ -54,10 +56,10 @@ def execute_strategy():
         ### Russell Rat FTLT - No TMF Check ###
         if df['SMR_600'][df['ticker'] == 'SHY'].values[0] < 0:
             if df['RSI_11'][df['ticker'] == 'IEF'].values[0] > df['RSI_16'][df['ticker'] == 'IWM'].values[0]:
-                alloc_tkr = ['FAS', 'DRN', 'TNA', 'LABU', 'URTY']
+                alloc_tkr = ['FAS', 'DRN', 'TNA', 'LABU', 'URTY', 'HIBL', 'EDC']
                 alloc_df = df[df['ticker'].isin(alloc_tkr)]
             else:
-                alloc_tkr = ['FAZ', 'DRV', 'TZA', 'LABD', 'SRTY']
+                alloc_tkr = ['FAZ', 'DRV', 'TZA', 'LABD', 'SRTY', 'HIBS', 'EDZ']
                 alloc_df = df[df['ticker'].isin(alloc_tkr)]
         else:
             ###TQQQ Or Not ###
