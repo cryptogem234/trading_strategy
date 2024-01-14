@@ -2,32 +2,31 @@ import pandas as pd
 from data import exract_data as ed, tech_indicators as ti
 from datetime import datetime, timedelta
 from strategies.RAT_FTLT.TQQQ_or_Not import tqqq_or_not as tqn
+from strategies.RAT_FTLT import config as cfg
 
-def execute_strategy():
 
-    strategy_name = 'RAT FTLT Banks, Small Cap, Russell, HealthCare, Real Estate, High Beta, Foreign'
-    list = ['SPY','SHY','TMF','IEF','IWM','UVXY','TQQQ','BIL','QQQ','BND','TLT']
-    bank = ['FAS','FAZ']
-    house = ['DRN','DRV']
-    smallcap = ['TNA','TZA']
-    lab = ['LABU','LABD']
-    russell = ['URTY','SRTY']
-    beta = ['HIBL', 'HIBS']
-    foreign = ['EDC', 'EDZ']
-    sym_list = list + bank + house + smallcap + lab + russell + beta + foreign
-
-    end_date = datetime.today()
-    start_date = end_date - timedelta(days=1000)
-    hist_days_list = [1,5,6,10,11,14,16,25,45,60,200,600]
+def get_historical_data():
+    sym_list = cfg.sym_list
+    start_date = cfg.start_date
+    end_date = cfg.end_date
 
     stock_historical_data = ed.get_hist_data(sym_list, start_date, end_date)
 
-    # stock_historical_data.to_csv('stock_historical_data.csv')
-    # stock_historical_data = pd.read_csv('stock_historical_data.csv')
-    #stock_historical_data = stock_historical_data[stock_historical_data['date']<='2023-11-30']
+    return stock_historical_data
 
-    stock_tech_summ_data = ti.get_technical_data(sym_list, stock_historical_data, hist_days_list)
+def get_technical_data():
 
+    sym_list = cfg.sym_list
+    hist_days_list = cfg.hist_days_list
+    stock_historical_data = get_historical_data()
+    stock_tech_full_data, stock_tech_summ_data = ti.get_technical_data(sym_list, stock_historical_data, hist_days_list)
+
+    return stock_tech_full_data, stock_tech_summ_data
+
+
+def execute_strategy():
+
+    stock_tech_full_data, stock_tech_summ_data = get_technical_data()
     df = stock_tech_summ_data
 
     if df['RSI_10'][df['ticker']=='SPY'].values[0] > 71:
@@ -67,12 +66,14 @@ def execute_strategy():
             alloc_tkr_tqqq = [alloc_tkr_1]
             alloc_df = df[df['ticker'].isin(alloc_tkr_tqqq)]
 
-    #alloc_df = alloc_df.sort_values(by='SMR' + '_' + '10', ascending=True).head(3)
-    alloc_df['strategy_name'] = strategy_name
-    alloc_df['eff_date'] = end_date
+    alloc_df = alloc_df.sort_values(by='SMR' + '_' + '10', ascending=False).head(3)
 
-    alloc_df = (alloc_df.groupby(['strategy_name','eff_date']).agg({'ticker': lambda x: ' , '.join(x)}).reset_index())
-
-    curr_alloc_df = alloc_df[['strategy_name','eff_date','ticker']]
+    alloc_df['strategy_name'] = cfg.strategy_name
+    curr_alloc_df = alloc_df[['strategy_name','date','ticker','close','PCTRET']]
+    curr_alloc_df['close'] = curr_alloc_df['close'].round(2)
+    curr_alloc_df['PCTRET'] = (curr_alloc_df['PCTRET'] * 100).round(4)
+    curr_alloc_df = curr_alloc_df.rename(columns={'PCTRET': 'pctreturn'})
+    curr_alloc_df['date'] = pd.to_datetime(curr_alloc_df['date']).dt.strftime('%m/%d/%Y')
 
     return curr_alloc_df
+

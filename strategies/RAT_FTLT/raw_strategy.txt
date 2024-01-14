@@ -1,0 +1,271 @@
+(defsymphony
+ "Russell Rat FTLT"
+ {:rebalance-frequency :daily}
+ (weight-equal
+  [(group
+    "Russell Rat FTLT"
+    [(weight-equal
+      [(if
+        (> (rsi "SPY" {:window 10}) 71)
+        [(group
+          "Russell Rat FTLT (TMF Check)"
+          [(weight-equal
+            [(if
+              (< (moving-average-return "SHY" {:window 600}) 0)
+              [(weight-equal
+                [(if
+                  (> (rsi "TMF" {:window 14}) 60)
+                  [(weight-equal
+                    [(if
+                      (<
+                       (rsi "IEF" {:window 11})
+                       (rsi "IWM" {:window 16}))
+                      [(weight-equal [(asset "URTY")])]
+                      [(weight-equal [(asset "SRTY")])])])]
+                  [(weight-equal
+                    [(if
+                      (>
+                       (rsi "IEF" {:window 11})
+                       (rsi "IWM" {:window 16}))
+                      [(weight-equal [(asset "URTY")])]
+                      [(weight-equal [(asset "SRTY")])])])])])]
+              [(group
+                "TQQQ or not | BlackSwan MeanRev BondSignal"
+                [(weight-equal
+                  [(if
+                    (> (rsi "TQQQ" {:window 10}) 79)
+                    [(asset "UVXY")]
+                    [(weight-equal
+                      [(group
+                        "Huge volatility"
+                        [(weight-equal
+                          [(if
+                            (<
+                             (cumulative-return "TQQQ" {:window 6})
+                             -13)
+                            [(weight-equal
+                              [(if
+                                (>
+                                 (cumulative-return "TQQQ" {:window 1})
+                                 6)
+                                [(weight-equal [(asset "UVXY")])]
+                                [(weight-equal
+                                  [(group
+                                    "Mean Rev"
+                                    [(weight-equal
+                                      [(if
+                                        (<
+                                         (rsi "TQQQ" {:window 10})
+                                         32)
+                                        [(asset "TQQQ")]
+                                        [(weight-equal
+                                          [(if
+                                            (<
+                                             (max-drawdown
+                                              "TMF"
+                                              {:window 10})
+                                             7)
+                                            [(asset "TQQQ")]
+                                            [(weight-equal
+                                              [(asset
+                                                "BIL")])])])])])])])])])]
+                            [(weight-equal
+                              [(group
+                                "Normal market"
+                                [(weight-equal
+                                  [(if
+                                    (>
+                                     (max-drawdown "QQQ" {:window 10})
+                                     6)
+                                    [(asset "BIL")]
+                                    [(weight-equal
+                                      [(if
+                                        (>
+                                         (max-drawdown
+                                          "TMF"
+                                          {:window 10})
+                                         7)
+                                        [(asset "BIL")]
+                                        [(weight-equal
+                                          [(if
+                                            (>
+                                             (current-price "QQQ")
+                                             (moving-average-price
+                                              "QQQ"
+                                              {:window 25}))
+                                            [(weight-equal
+                                              [(asset "TQQQ")])]
+                                            [(weight-equal
+                                              [(if
+                                                (>
+                                                 (rsi
+                                                  "SPY"
+                                                  {:window 60})
+                                                 50)
+                                                [(group
+                                                  "Bond > Stock"
+                                                  [(weight-equal
+                                                    [(if
+                                                      (>
+                                                       (rsi
+                                                        "BND"
+                                                        {:window 45})
+                                                       (rsi
+                                                        "SPY"
+                                                        {:window 45}))
+                                                      [(asset "TQQQ")]
+                                                      [(asset
+                                                        "BIL")])])])]
+                                                [(group
+                                                  "Bond Mid-term < Long-term"
+                                                  [(weight-equal
+                                                    [(if
+                                                      (<
+                                                       (rsi
+                                                        "IEF"
+                                                        {:window 200})
+                                                       (rsi
+                                                        "TLT"
+                                                        {:window 200}))
+                                                      [(weight-equal
+                                                        [(if
+                                                          (>
+                                                           (rsi
+                                                            "BND"
+                                                            {:window
+                                                             45})
+                                                           (rsi
+                                                            "SPY"
+                                                            {:window
+                                                             45}))
+                                                          [(asset
+                                                            "TQQQ")]
+                                                          [(asset
+                                                            "BIL")])])]
+                                                      [(asset
+                                                        "BIL")])])])])])])])])])])])])])])])])])])])])])])])]
+        [(group
+          "Russell Rat FTLT (no TMF Check)"
+          [(weight-equal
+            [(if
+              (< (moving-average-return "SHY" {:window 600}) 0)
+              [(weight-equal
+                [(if
+                  (> (rsi "IEF" {:window 11}) (rsi "IWM" {:window 16}))
+                  [(weight-equal [(asset "URTY")])]
+                  [(weight-equal [(asset "SRTY")])])])]
+              [(group
+                "TQQQ or not | BlackSwan MeanRev BondSignal"
+                [(weight-equal
+                  [(if
+                    (> (rsi "TQQQ" {:window 10}) 79)
+                    [(asset "UVXY")]
+                    [(weight-equal
+                      [(group
+                        "Huge volatility"
+                        [(weight-equal
+                          [(if
+                            (<
+                             (cumulative-return "TQQQ" {:window 6})
+                             -13)
+                            [(weight-equal
+                              [(if
+                                (>
+                                 (cumulative-return "TQQQ" {:window 1})
+                                 6)
+                                [(weight-equal [(asset "UVXY")])]
+                                [(weight-equal
+                                  [(group
+                                    "Mean Rev"
+                                    [(weight-equal
+                                      [(if
+                                        (<
+                                         (rsi "TQQQ" {:window 10})
+                                         32)
+                                        [(asset "TQQQ")]
+                                        [(weight-equal
+                                          [(if
+                                            (<
+                                             (max-drawdown
+                                              "TMF"
+                                              {:window 10})
+                                             7)
+                                            [(asset "TQQQ")]
+                                            [(weight-equal
+                                              [(asset
+                                                "BIL")])])])])])])])])])]
+                            [(weight-equal
+                              [(group
+                                "Normal market"
+                                [(weight-equal
+                                  [(if
+                                    (>
+                                     (max-drawdown "QQQ" {:window 10})
+                                     6)
+                                    [(asset "BIL")]
+                                    [(weight-equal
+                                      [(if
+                                        (>
+                                         (max-drawdown
+                                          "TMF"
+                                          {:window 10})
+                                         7)
+                                        [(asset "BIL")]
+                                        [(weight-equal
+                                          [(if
+                                            (>
+                                             (current-price "QQQ")
+                                             (moving-average-price
+                                              "QQQ"
+                                              {:window 25}))
+                                            [(weight-equal
+                                              [(asset "TQQQ")])]
+                                            [(weight-equal
+                                              [(if
+                                                (>
+                                                 (rsi
+                                                  "SPY"
+                                                  {:window 60})
+                                                 50)
+                                                [(group
+                                                  "Bond > Stock"
+                                                  [(weight-equal
+                                                    [(if
+                                                      (>
+                                                       (rsi
+                                                        "BND"
+                                                        {:window 45})
+                                                       (rsi
+                                                        "SPY"
+                                                        {:window 45}))
+                                                      [(asset "TQQQ")]
+                                                      [(asset
+                                                        "BIL")])])])]
+                                                [(group
+                                                  "Bond Mid-term < Long-term"
+                                                  [(weight-equal
+                                                    [(if
+                                                      (<
+                                                       (rsi
+                                                        "IEF"
+                                                        {:window 200})
+                                                       (rsi
+                                                        "TLT"
+                                                        {:window 200}))
+                                                      [(weight-equal
+                                                        [(if
+                                                          (>
+                                                           (rsi
+                                                            "BND"
+                                                            {:window
+                                                             45})
+                                                           (rsi
+                                                            "SPY"
+                                                            {:window
+                                                             45}))
+                                                          [(asset
+                                                            "TQQQ")]
+                                                          [(asset
+                                                            "BIL")])])]
+                                                      [(asset
+                                                        "BIL")])])])])])])])])])])])])])])])])])])])])])])])])])])]))
