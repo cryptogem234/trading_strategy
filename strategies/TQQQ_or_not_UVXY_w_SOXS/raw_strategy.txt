@@ -1,0 +1,95 @@
+(defsymphony
+ "V1a TQQQ or not - Replace UVXY w/ SOXS (Invest Copy)"
+ {:rebalance-frequency :daily}
+ (weight-equal
+  [(group
+    "V1a TQQQ or not - Replace UVXY w/ SOXS"
+    [(weight-equal
+      [(group
+        "bsmr230105 | TQQQ or not | BlackSwan MeanRev BondSignal"
+        [(weight-equal
+          [(if
+            (> (rsi "TQQQ" {:window 10}) 79)
+            [(asset "SOXS")]
+            [(weight-equal
+              [(group
+                "Huge volatility"
+                [(weight-equal
+                  [(if
+                    (< (cumulative-return "TQQQ" {:window 6}) -12)
+                    [(weight-equal
+                      [(if
+                        (> (cumulative-return "TQQQ" {:window 1}) 5.5)
+                        [(weight-equal [(asset "UVXY")])]
+                        [(weight-equal
+                          [(group
+                            "Mean Rev"
+                            [(weight-equal
+                              [(if
+                                (< (rsi "TQQQ" {:window 10}) 32)
+                                [(asset "SOXL")]
+                                [(weight-equal
+                                  [(if
+                                    (<
+                                     (max-drawdown "TMF" {:window 10})
+                                     7)
+                                    [(asset "SOXL")]
+                                    [(weight-equal
+                                      [(asset "BIL")])])])])])])])])])]
+                    [(weight-equal
+                      [(group
+                        "Normal market"
+                        [(weight-equal
+                          [(if
+                            (> (max-drawdown "QQQ" {:window 10}) 6)
+                            [(asset "BIL")]
+                            [(weight-equal
+                              [(if
+                                (> (max-drawdown "TMF" {:window 10}) 7)
+                                [(asset "BIL")]
+                                [(weight-equal
+                                  [(if
+                                    (>
+                                     (current-price "QQQ")
+                                     (moving-average-price
+                                      "QQQ"
+                                      {:window 25}))
+                                    [(weight-equal [(asset "TQQQ")])]
+                                    [(weight-equal
+                                      [(if
+                                        (> (rsi "SPY" {:window 60}) 50)
+                                        [(group
+                                          "Bond > Stock"
+                                          [(weight-equal
+                                            [(if
+                                              (>
+                                               (rsi "BND" {:window 45})
+                                               (rsi
+                                                "SPY"
+                                                {:window 45}))
+                                              [(asset "TQQQ")]
+                                              [(asset "BIL")])])])]
+                                        [(group
+                                          "Bond Mid-term < Long-term"
+                                          [(weight-equal
+                                            [(if
+                                              (<
+                                               (rsi
+                                                "IEF"
+                                                {:window 200})
+                                               (rsi
+                                                "TLT"
+                                                {:window 200}))
+                                              [(weight-equal
+                                                [(if
+                                                  (>
+                                                   (rsi
+                                                    "BND"
+                                                    {:window 45})
+                                                   (rsi
+                                                    "SPY"
+                                                    {:window 45}))
+                                                  [(asset "TQQQ")]
+                                                  [(asset "BIL")])])]
+                                              [(asset
+                                                "BIL")])])])])])])])])])])])])])])])])])])])])])])]))

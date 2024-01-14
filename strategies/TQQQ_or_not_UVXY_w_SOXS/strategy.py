@@ -1,23 +1,30 @@
 import pandas as pd
 from data import exract_data as ed, tech_indicators as ti
 from datetime import datetime, timedelta
+from strategies.TQQQ_or_not_UVXY_w_SOXS import config as cfg
+
+def get_historical_data():
+    sym_list = cfg.sym_list
+    start_date = cfg.start_date
+    end_date = cfg.end_date
+
+    stock_historical_data = ed.get_hist_data(sym_list, start_date, end_date)
+
+    return stock_historical_data
+
+def get_technical_data():
+
+    sym_list = cfg.sym_list
+    hist_days_list = cfg.hist_days_list
+    stock_historical_data = get_historical_data()
+    stock_tech_full_data, stock_tech_summ_data = ti.get_technical_data(sym_list, stock_historical_data, hist_days_list)
+
+    return stock_tech_full_data, stock_tech_summ_data
+
 
 def execute_strategy():
 
-    strategy_name = 'TQQQ OR Not Short Via SOXS'
-    sym_list = ['TQQQ', 'SOXS', 'SOXL', 'BIL', 'UVXY', 'QQQ', 'TMF', 'SPY', 'BND', 'TLT', 'IEF']
-    end_date = datetime.today()
-    start_date = end_date - timedelta(days=300)
-    hist_days_list = [1, 3, 5, 6, 8, 10, 15, 20, 25, 45, 50, 60, 110, 200]
-
-    stock_historical_data = ed.get_hist_data(sym_list,start_date,end_date)
-
-    # stock_historical_data.to_csv('stock_historical_data.csv')
-    # stock_historical_data = pd.read_csv('stock_historical_data.csv')
-    # stock_historical_data = stock_historical_data[stock_historical_data['date']<='2022-10-13']
-
-    stock_tech_summ_data = ti.get_technical_data(sym_list,stock_historical_data,hist_days_list)
-
+    stock_tech_full_data, stock_tech_summ_data = get_technical_data()
     df = stock_tech_summ_data
 
     if df['RSI_10'][df['ticker']=='TQQQ'].values[0] > 79:
@@ -72,9 +79,11 @@ def execute_strategy():
                                 alloc_df = df[df['ticker'] == 'BIL']
 
 
-    alloc_df['strategy_name'] = strategy_name
-    alloc_df['eff_date'] = end_date
-
-    curr_alloc_df = alloc_df[['strategy_name','eff_date','ticker']]
+    alloc_df['strategy_name'] = cfg.strategy_name
+    curr_alloc_df = alloc_df[['strategy_name','date','ticker','close','PCTRET']]
+    curr_alloc_df['close'] = curr_alloc_df['close'].round(2)
+    curr_alloc_df['PCTRET'] = (curr_alloc_df['PCTRET'] * 100).round(4)
+    curr_alloc_df = curr_alloc_df.rename(columns={'PCTRET': 'pctreturn'})
+    curr_alloc_df['date'] = pd.to_datetime(curr_alloc_df['date']).dt.strftime('%m/%d/%Y')
 
     return curr_alloc_df
