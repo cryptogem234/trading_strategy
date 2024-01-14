@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
-
+    stock_tech_full_data = pd.DataFrame()
     stock_tech_summ_data = pd.DataFrame()
     for i in sym_list:
         try:
@@ -28,14 +28,17 @@ def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
                 df['STDP_' + str(i)] = df['close'].rolling(window=i).std()
                 df['MDD_' + str(i)] = -1 * (
                             (df.tail(i).close - df.tail(i).close.cummax()) / df.tail(i).close.cummax()).min()
-            df = df.tail(1)
+
             df.sort_index(axis=1, inplace=True)
+            stock_tech_full_data = pd.concat([stock_tech_full_data, df], axis=0)
+
+            df = df.tail(1)
 
             stock_tech_summ_data = pd.concat([stock_tech_summ_data, df], axis=0)
         except Exception as e:
             print(f"Error processing {i}: {e}")
 
-    return stock_tech_summ_data
+    return stock_tech_full_data, stock_tech_summ_data
 
 
 
