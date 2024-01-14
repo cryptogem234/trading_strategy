@@ -5,6 +5,7 @@ from dash_table import DataTable
 import pandas as pd
 import total_strategies as ts
 from datetime import datetime
+import pytz
 
 # Create Dash app
 app = dash.Dash(__name__)
@@ -65,7 +66,13 @@ for table in tables:
             function_name = f"execute_{table['id'].replace('-', '_')}_strategy"
             result_df = getattr(ts, function_name)()
             result_df = result_df.to_dict('records')
-            refresh_time = datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
+
+            # Convert the current UTC time to EST
+            est = pytz.timezone('US/Eastern')
+            refresh_time_utc = datetime.now()
+            refresh_time_est = refresh_time_utc.astimezone(est)
+            refresh_time = refresh_time_est.strftime("%Y-%m-%d %I:%M:%S %p")
+
             return result_df, [], refresh_time
 
         return [], [], []
