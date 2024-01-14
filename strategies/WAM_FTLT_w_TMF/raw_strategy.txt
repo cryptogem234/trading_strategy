@@ -1,0 +1,232 @@
+(defsymphony
+ "WAM FTLT TMF Check"
+ {:rebalance-threshold 0.1}
+ (weight-equal
+  [(group
+    "WAM FTLT (TMF Check)"
+    [(weight-equal
+      [(if
+        (< (moving-average-return "SHY" {:window 575}) 0)
+        [(weight-equal
+          [(if
+            (> (rsi "TMF" {:window 14}) 60)
+            [(weight-equal
+              [(if
+                (< (rsi "IEF" {:window 11}) (rsi "IWM" {:window 16}))
+                [(weight-equal
+                  [(filter
+                    (moving-average-return {:window 4})
+                    (select-top 1)
+                    [(asset "TECL")
+                     (asset "TQQQ")
+                     (asset "DRN")
+                     (asset "SOXL")
+                     (asset "URTY")
+                     (asset "TMF")
+                     (group
+                      "LAB Check Bull"
+                      [(weight-equal
+                        [(if
+                          (<
+                           (moving-average-return "XBI" {:window 600})
+                           0)
+                          [(asset "LABU")]
+                          [(asset "SPXL")])])])])])]
+                [(weight-equal
+                  [(filter
+                    (moving-average-return {:window 4})
+                    (select-top 1)
+                    [(asset "PSQ")
+                     (asset "TYO")
+                     (asset "DRV")
+                     (asset "TMV")
+                     (asset "SH")
+                     (group
+                      "LAB Check Bear"
+                      [(weight-equal
+                        [(if
+                          (<
+                           (moving-average-return "XBI" {:window 600})
+                           0)
+                          [(asset "LABD")]
+                          [(asset "SPXS")])])])])])])])]
+            [(weight-equal
+              [(if
+                (> (rsi "IEF" {:window 11}) (rsi "IWM" {:window 16}))
+                [(weight-equal
+                  [(filter
+                    (moving-average-return {:window 4})
+                    (select-bottom 1)
+                    [(asset "TECL")
+                     (asset "TQQQ")
+                     (asset "DRN")
+                     (asset "SOXL")
+                     (asset "URTY")
+                     (asset "TMF")
+                     (group
+                      "LAB Check Bull"
+                      [(weight-equal
+                        [(if
+                          (<
+                           (moving-average-return "XBI" {:window 600})
+                           0)
+                          [(asset "LABU")]
+                          [(asset "SPXL")])])])])])]
+                [(weight-equal
+                  [(filter
+                    (moving-average-return {:window 4})
+                    (select-bottom 1)
+                    [(asset "PSQ")
+                     (asset "TYO")
+                     (asset "DRV")
+                     (asset "TMV")
+                     (asset "SH")
+                     (group
+                      "LAB Check Bear"
+                      [(weight-equal
+                        [(if
+                          (<
+                           (moving-average-return "XBI" {:window 600})
+                           0)
+                          [(asset "LABD")]
+                          [(asset "SPXS")])])])])])])])])])]
+        [(weight-equal
+          [(if
+            (< (rsi "QQQ" {:window 10}) 30)
+            [(asset "SOXL")]
+            [(weight-equal
+              [(if
+                (< (rsi "SPY" {:window 14}) 30)
+                [(asset "UPRO")]
+                [(weight-equal
+                  [(if
+                    (> (rsi "QQQ" {:window 10}) 80)
+                    [(asset "UVXY")]
+                    [(group
+                      "V1a TQQQ or not | BlackSwan MeanRev BondSignal - Replace UVXY"
+                      [(weight-equal
+                        [(if
+                          (> (rsi "TQQQ" {:window 10}) 79)
+                          [(asset "UVXY")]
+                          [(weight-equal
+                            [(group
+                              "Huge volatility"
+                              [(weight-equal
+                                [(if
+                                  (<
+                                   (cumulative-return
+                                    "TQQQ"
+                                    {:window 6})
+                                   -13)
+                                  [(weight-equal
+                                    [(if
+                                      (>
+                                       (cumulative-return
+                                        "TQQQ"
+                                        {:window 1})
+                                       6)
+                                      [(weight-equal [(asset "UVXY")])]
+                                      [(weight-equal
+                                        [(group
+                                          "Mean Rev"
+                                          [(weight-equal
+                                            [(if
+                                              (<
+                                               (rsi
+                                                "TQQQ"
+                                                {:window 10})
+                                               32)
+                                              [(asset "SOXL")]
+                                              [(weight-equal
+                                                [(if
+                                                  (<
+                                                   (max-drawdown
+                                                    "TMF"
+                                                    {:window 10})
+                                                   7)
+                                                  [(asset "SOXL")]
+                                                  [(asset
+                                                    "PSQ")])])])])])])])])]
+                                  [(weight-equal
+                                    [(group
+                                      "Normal market"
+                                      [(weight-equal
+                                        [(if
+                                          (>
+                                           (max-drawdown
+                                            "QQQ"
+                                            {:window 10})
+                                           6)
+                                          [(asset "PSQ")]
+                                          [(weight-equal
+                                            [(if
+                                              (>
+                                               (max-drawdown
+                                                "TMF"
+                                                {:window 10})
+                                               7)
+                                              [(asset "PSQ")]
+                                              [(weight-equal
+                                                [(if
+                                                  (>
+                                                   (current-price
+                                                    "QQQ")
+                                                   (moving-average-price
+                                                    "QQQ"
+                                                    {:window 25}))
+                                                  [(weight-equal
+                                                    [(asset "TQQQ")])]
+                                                  [(weight-equal
+                                                    [(if
+                                                      (>
+                                                       (rsi
+                                                        "SPY"
+                                                        {:window 60})
+                                                       50)
+                                                      [(group
+                                                        "Bond > Stock"
+                                                        [(weight-equal
+                                                          [(if
+                                                            (>
+                                                             (rsi
+                                                              "BND"
+                                                              {:window
+                                                               45})
+                                                             (rsi
+                                                              "SPY"
+                                                              {:window
+                                                               45}))
+                                                            [(asset
+                                                              "TQQQ")]
+                                                            [(asset
+                                                              "PSQ")])])])]
+                                                      [(group
+                                                        "Bond Mid-term < Long-term"
+                                                        [(weight-equal
+                                                          [(if
+                                                            (<
+                                                             (rsi
+                                                              "IEF"
+                                                              {:window
+                                                               200})
+                                                             (rsi
+                                                              "TLT"
+                                                              {:window
+                                                               200}))
+                                                            [(weight-equal
+                                                              [(if
+                                                                (>
+                                                                 (rsi
+                                                                  "BND"
+                                                                  {:window
+                                                                   45})
+                                                                 (rsi
+                                                                  "SPY"
+                                                                  {:window
+                                                                   45}))
+                                                                [(asset
+                                                                  "TQQQ")]
+                                                                [(asset
+                                                                  "PSQ")])])]
+                                                            [(asset
+                                                              "PSQ")])])])])])])])])])])])])])])])])])])])])])])])])])])])])])]))
