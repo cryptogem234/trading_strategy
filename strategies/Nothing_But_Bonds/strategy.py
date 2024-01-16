@@ -9,10 +9,9 @@ from strategies.Nothing_But_Bonds import config as cfg
 
 def get_historical_data():
     sym_list = cfg.sym_list
-    start_date = cfg.start_date
-    end_date = cfg.end_date
+    hist_period = cfg.period
 
-    stock_historical_data = ed.get_hist_data(sym_list, start_date, end_date)
+    stock_historical_data = ed.get_hist_data(sym_list, hist_period)
 
     return stock_historical_data
 
@@ -63,9 +62,6 @@ def execute_strategy():
             alloc_tkr_4 = ief(df)
             alloc_tkr = [alloc_tkr_1, alloc_tkr_2, alloc_tkr_3, alloc_tkr_4]
             alloc_df = df[df['ticker'].isin(alloc_tkr)]
-
-    alloc_df['strategy_name'] = cfg.strategy_name
-    alloc_df['eff_date'] = cfg.end_date
 
     alloc_df['strategy_name'] = cfg.strategy_name
     curr_alloc_df = alloc_df[['strategy_name', 'date', 'ticker', 'close', 'PCTRET']]
