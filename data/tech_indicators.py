@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
+
     stock_tech_full_data = pd.DataFrame()
     stock_tech_summ_data = pd.DataFrame()
     for i in sym_list:
@@ -26,10 +27,11 @@ def get_technical_data(sym_list, stock_hist_data_df, hist_days_list):
                 df['SMR_' + str(i)] = df['PCTRET'].rolling(window=i).mean()
                 df['CUMR_' + str(i)] = np.exp(np.log(df['PCTRET'] + 1).rolling(i).sum()) - 1
                 df['STDP_' + str(i)] = df['close'].rolling(window=i).std()
+                df['STDR_' + str(i)] = df['PCTRET'].rolling(window=i).std()
                 df['MDD_' + str(i)] = -1 * (
                             (df.tail(i).close - df.tail(i).close.cummax()) / df.tail(i).close.cummax()).min()
 
-            df.sort_index(axis=1, inplace=True)
+
             stock_tech_full_data = pd.concat([stock_tech_full_data, df], axis=0)
 
             df = df.tail(1)
