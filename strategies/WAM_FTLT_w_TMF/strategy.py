@@ -5,10 +5,9 @@ from strategies.WAM_FTLT_w_TMF import config as cfg
 
 def get_historical_data():
     sym_list = cfg.sym_list
-    start_date = cfg.start_date
-    end_date = cfg.end_date
+    hist_period = cfg.period
 
-    stock_historical_data = ed.get_hist_data(sym_list, start_date, end_date)
+    stock_historical_data = ed.get_hist_data(sym_list, hist_period)
 
     return stock_historical_data
 
