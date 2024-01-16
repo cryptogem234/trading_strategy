@@ -1,0 +1,135 @@
+(defsymphony
+ "Copy of V2.1 Holy Grail Simplified w/RSI Divination - without VIXen"
+ {:rebalance-frequency :daily}
+ (weight-equal
+  [(weight-equal
+    [(group
+      "V2.1 Holy Grail Simplified w/RSI Divination - without VIXen"
+      [(weight-equal
+        [(if
+          (>
+           (current-price "SPY")
+           (moving-average-price "SPY" {:window 200}))
+          [(weight-equal
+            [(if
+              (> (rsi "QQQ" {:window 10}) 81)
+              [(weight-equal
+                [(filter
+                  (rsi {:window 13})
+                  (select-top 1)
+                  [(asset "UVXY") (asset "SQQQ")])])]
+              [(weight-equal
+                [(if
+                  (> (rsi "SPY" {:window 10}) 80)
+                  [(weight-equal
+                    [(filter
+                      (rsi {:window 13})
+                      (select-top 1)
+                      [(asset "UVXY") (asset "SPXU")])])]
+                  [(weight-equal
+                    [(group
+                      "Group"
+                      [(weight-equal
+                        [(if
+                          (> (rsi "QQQ" {:window 10}) 65)
+                          [(asset "TQQQ")]
+                          [(weight-equal
+                            [(filter
+                              (rsi {:window 11})
+                              (select-bottom 1)
+                              [(asset "TQQQ")
+                               (asset "STIP")])])])])])])])])])])]
+          [(weight-equal
+            [(if
+              (< (rsi "QQQ" {:window 10}) 30)
+              [(weight-equal
+                [(filter
+                  (rsi {:window 11})
+                  (select-bottom 1)
+                  [(asset "TECL") (asset "SHY")])])]
+              [(weight-equal
+                [(if
+                  (< (rsi "SPY" {:window 10}) 30)
+                  [(weight-equal
+                    [(filter
+                      (rsi {:window 11})
+                      (select-bottom 1)
+                      [(asset "UPRO") (asset "SHY")])])]
+                  [(weight-equal
+                    [(if
+                      (< (cumulative-return "TQQQ" {:window 6}) -11)
+                      [(group
+                        "Buy the dips. Sell the rips. V2"
+                        [(weight-equal
+                          [(if
+                            (>
+                             (cumulative-return "TQQQ" {:window 1})
+                             5.5)
+                            [(weight-equal
+                              [(filter
+                                (rsi {:window 11})
+                                (select-top 1)
+                                [(asset "UVXY") (asset "SQQQ")])])]
+                            [(weight-equal
+                              [(if
+                                (>
+                                 (cumulative-return "SQQQ" {:window 1})
+                                 2.8)
+                                [(weight-equal
+                                  [(filter
+                                    (rsi {:window 11})
+                                    (select-bottom 1)
+                                    [(asset "TQQQ") (asset "UDN")])
+                                   (filter
+                                    (rsi {:window 11})
+                                    (select-top 1)
+                                    [(asset "TQQQ") (asset "TMV")])])]
+                                [(group
+                                  "Hold Stocks / Bonds (RSI modulated SOXL-SHV, TQQQ-STIP)"
+                                  [(weight-specified
+                                    0.68
+                                    (filter
+                                     (rsi {:window 11})
+                                     (select-bottom 1)
+                                     [(asset "SOXL") (asset "SHV")])
+                                    0.32
+                                    (filter
+                                     (rsi {:window 11})
+                                     (select-bottom 1)
+                                     [(asset "TQQQ")
+                                      (asset "STIP")]))])])])])])])]
+                      [(weight-equal
+                        [(if
+                          (>
+                           (current-price "QLD")
+                           (moving-average-price "QLD" {:window 20}))
+                          [(weight-equal
+                            [(filter
+                              (rsi {:window 11})
+                              (select-bottom 1)
+                              [(asset "TQQQ") (asset "STIP")])])]
+                          [(weight-equal
+                            [(if
+                              (>
+                               (moving-average-return
+                                "TLT"
+                                {:window 20})
+                               (moving-average-return
+                                "UDN"
+                                {:window 20}))
+                              [(weight-equal
+                                [(filter
+                                  (rsi {:window 11})
+                                  (select-top 1)
+                                  [(asset "TLT") (asset "SQQQ")])])]
+                              [(weight-equal
+                                [(filter
+                                  (rsi {:window 10})
+                                  (select-bottom 1)
+                                  [(asset "UUP") (asset "SQQQ")])])])
+                             (filter
+                              (rsi {:window 12})
+                              (select-bottom 1)
+                              [(asset "UGL")
+                               (asset
+                                "SQQQ")])])])])])])])])])])])])])])]))
