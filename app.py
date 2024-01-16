@@ -18,14 +18,16 @@ rat_ftlt = pd.DataFrame(columns=col_list)
 nothing_but_bonds = pd.DataFrame(columns=col_list)
 short_volatility_svxy = pd.DataFrame(columns=col_list)
 wam_ftlt = pd.DataFrame(columns=col_list)
+holy_grail = pd.DataFrame(columns=col_list)
 
 # Define a list of dictionaries for each table
 tables = [
-    {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button', 'name': 'TQQQ or Not'},
+    {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button1', 'name': 'TQQQ or Not'},
     {'id': 'rat_ftlt', 'df': rat_ftlt, 'button_id': 'refresh-button2', 'name': 'RAT FTLT'},
     {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button3', 'name': 'Nothing but Bonds'},
     {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button4', 'name': 'Short Volatility SVXY'},
-    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button5', 'name': 'WAM FTLT'}
+    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button5', 'name': 'WAM FTLT'},
+    {'id': 'holy_grail', 'df': wam_ftlt, 'button_id': 'refresh-button6', 'name': 'Holy Grail'}
 ]
 
 # Define layout dynamically
