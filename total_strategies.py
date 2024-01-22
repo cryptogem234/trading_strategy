@@ -5,6 +5,7 @@ from strategies.Nothing_But_Bonds import strategy as nothing_but_bonds
 from strategies.Short_Vol_w_SVXY_SVXY_FTLT import strategy as short_volatility_svxy
 from strategies.WAM_FTLT_w_TMF import strategy as wam_ftlt
 from strategies.Holy_Grail_Simplified_RSI_Divination_wo_VIXen import strategy as holy_grail
+from strategies.Simple_20d_BND_vs_60d_SH import strategy as bnd_20d_sh_60d
 
 def execute_tqqq_or_not_strategy():
     tqqq_or_not_strategy = tqqq_or_not.execute_strategy()
@@ -29,3 +30,7 @@ def execute_wam_ftlt_strategy():
 def execute_holy_grail_strategy():
     holy_grail_strategy = holy_grail.execute_strategy()
     return holy_grail_strategy
+
+def execute_bnd_20d_sh_60d_strategy():
+    bnd_20d_sh_60d_strategy = bnd_20d_sh_60d.execute_strategy()
+    return bnd_20d_sh_60d_strategy
