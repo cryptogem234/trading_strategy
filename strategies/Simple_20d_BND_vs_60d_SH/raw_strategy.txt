@@ -1,0 +1,117 @@
+(defsymphony
+ "Simple 20d BND vs 60d SH"
+ {:rebalance-threshold 0.05}
+ (weight-equal
+  [(group
+    "20d BND vs 60d SH v1"
+    [(weight-equal
+      [(if
+        (> (rsi "SPY" {:window 60}) 61)
+        [(weight-equal [(asset "VIXY") (asset "BIL")])]
+        [(weight-equal
+          [(if
+            (> (rsi "QQQ" {:window 10}) 81)
+            [(weight-equal [(asset "VIXY") (asset "BIL")])]
+            [(weight-equal
+              [(if
+                (> (rsi "SPY" {:window 10}) 80)
+                [(weight-equal [(asset "VIXY") (asset "BIL")])]
+                [(weight-equal
+                  [(if
+                    (< (rsi "TQQQ" {:window 10}) 32)
+                    [(weight-equal
+                      [(group
+                        "Oversold - TQQQ"
+                        [(weight-equal [(asset "TECL")])])])]
+                    [(weight-equal
+                      [(if
+                        (< (rsi "SPY" {:window 10}) 30)
+                        [(weight-equal
+                          [(group
+                            "Oversold - UPRO"
+                            [(weight-equal [(asset "UPRO")])])])]
+                        [(weight-equal
+                          [(if
+                            (<
+                             (cumulative-return "TQQQ" {:window 6})
+                             -10.5)
+                            [(weight-equal
+                              [(if
+                                (>
+                                 (cumulative-return "TQQQ" {:window 1})
+                                 5.5)
+                                [(weight-equal
+                                  [(asset "VIXY") (asset "BIL")])]
+                                [(weight-equal
+                                  [(group
+                                    "20d BND vs 60d SH"
+                                    [(weight-equal
+                                      [(if
+                                        (>
+                                         (rsi "BND" {:window 20})
+                                         (rsi "SH" {:window 60}))
+                                        [(weight-equal
+                                          [(if
+                                            (>
+                                             (current-price "SPY")
+                                             (moving-average-price
+                                              "SPY"
+                                              {:window 200}))
+                                            [(weight-equal
+                                              [(asset "TQQQ")])]
+                                            [(weight-equal
+                                              [(if
+                                                (>
+                                                 (current-price "TQQQ")
+                                                 (moving-average-price
+                                                  "TQQQ"
+                                                  {:window 20}))
+                                                [(weight-equal
+                                                  [(if
+                                                    (<
+                                                     (rsi
+                                                      "PSQ"
+                                                      {:window 10})
+                                                     30)
+                                                    [(asset "PSQ")]
+                                                    [(asset
+                                                      "TQQQ")])])]
+                                                [(weight-equal
+                                                  [(asset
+                                                    "BIL")])])])])])]
+                                        [(weight-equal
+                                          [(asset "BIL")])])])])])])])]
+                            [(group
+                              "20d BND vs 60d SH"
+                              [(weight-equal
+                                [(if
+                                  (>
+                                   (rsi "BND" {:window 20})
+                                   (rsi "SH" {:window 60}))
+                                  [(weight-equal
+                                    [(if
+                                      (>
+                                       (current-price "SPY")
+                                       (moving-average-price
+                                        "SPY"
+                                        {:window 200}))
+                                      [(weight-equal [(asset "TQQQ")])]
+                                      [(weight-equal
+                                        [(if
+                                          (>
+                                           (current-price "TQQQ")
+                                           (moving-average-price
+                                            "TQQQ"
+                                            {:window 20}))
+                                          [(weight-equal
+                                            [(if
+                                              (<
+                                               (rsi "PSQ" {:window 10})
+                                               30)
+                                              [(asset "PSQ")]
+                                              [(asset "TQQQ")])])]
+                                          [(weight-equal
+                                            [(asset "BIL")])])])])])]
+                                  [(weight-equal
+                                    [(asset
+                                      "BIL")])])])])])])])])])])])])])])])])])]))
