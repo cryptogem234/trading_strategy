@@ -12,7 +12,7 @@ app = dash.Dash(__name__)
 server = app.server
 
 # Initialize dataframes
-col_list = ['strategy_name','date','ticker','close','pctreturn']
+col_list = ['strategy_name','date','ticker','close','pctreturn','pct_alloc']
 tqqq_or_not = pd.DataFrame(columns=col_list)
 rat_ftlt = pd.DataFrame(columns=col_list)
 nothing_but_bonds = pd.DataFrame(columns=col_list)
@@ -20,6 +20,7 @@ short_volatility_svxy = pd.DataFrame(columns=col_list)
 wam_ftlt = pd.DataFrame(columns=col_list)
 holy_grail = pd.DataFrame(columns=col_list)
 bnd_20d_sh_60d = pd.DataFrame(columns=col_list)
+medium_time_frame_switches = pd.DataFrame(columns=col_list)
 
 # Define a list of dictionaries for each table
 tables = [
@@ -29,7 +30,8 @@ tables = [
     {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button4', 'name': 'Short Volatility SVXY'},
     {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button5', 'name': 'WAM FTLT'},
     {'id': 'holy_grail', 'df': holy_grail, 'button_id': 'refresh-button6', 'name': 'Holy Grail'},
-    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button7', 'name': 'Simple 20d BND vs 60d SH'}
+    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button7', 'name': 'Simple 20d BND vs 60d SH'},
+    {'id': 'medium_time_frame_switches', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button8', 'name': 'Medium Time Frame Switches'}
 ]
 
 # Define layout dynamically

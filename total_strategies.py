@@ -6,6 +6,7 @@ from strategies.Short_Vol_w_SVXY_SVXY_FTLT import strategy as short_volatility_s
 from strategies.WAM_FTLT_w_TMF import strategy as wam_ftlt
 from strategies.Holy_Grail_Simplified_RSI_Divination_wo_VIXen import strategy as holy_grail
 from strategies.Simple_20d_BND_vs_60d_SH import strategy as bnd_20d_sh_60d
+from strategies.Medium_Time_Frame_Switches import strategy as medium_time_frame_switches
 
 def execute_tqqq_or_not_strategy():
     tqqq_or_not_strategy = tqqq_or_not.execute_strategy()
@@ -34,3 +35,7 @@ def execute_holy_grail_strategy():
 def execute_bnd_20d_sh_60d_strategy():
     bnd_20d_sh_60d_strategy = bnd_20d_sh_60d.execute_strategy()
     return bnd_20d_sh_60d_strategy
+
+def execute_medium_time_frame_switches_strategy():
+    medium_time_frame_switches_strategy = medium_time_frame_switches.execute_strategy()
+    return medium_time_frame_switches_strategy
