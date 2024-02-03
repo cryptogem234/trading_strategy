@@ -33,17 +33,17 @@ def execute_strategy():
         if df['SMR_600'][df['ticker'] == 'SHY'].values[0] < 0:
             if df['RSI_14'][df['ticker'] == 'TMF'].values[0] > 60:
                 if df['RSI_11'][df['ticker'] == 'IEF'].values[0] < df['RSI_16'][df['ticker'] == 'IWM'].values[0]:
-                    alloc_tkr = ['FAS','DRN','TNA','LABU','URTY','HIBL', 'EDC']
+                    alloc_tkr = cfg.long_tkr
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
                 else:
-                    alloc_tkr = ['FAZ', 'DRV', 'TZA','LABD','SRTY','HIBS', 'EDZ']
+                    alloc_tkr = cfg.short_tkr
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
             else:
                 if df['RSI_11'][df['ticker'] == 'IEF'].values[0] > df['RSI_16'][df['ticker'] == 'IWM'].values[0]:
-                    alloc_tkr = ['FAS', 'DRN', 'TNA', 'LABU', 'URTY', 'HIBL', 'EDC']
+                    alloc_tkr = cfg.long_tkr
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
                 else:
-                    alloc_tkr = ['FAZ', 'DRV', 'TZA', 'LABD', 'SRTY', 'HIBS', 'EDZ']
+                    alloc_tkr = cfg.short_tkr
                     alloc_df = df[df['ticker'].isin(alloc_tkr)]
         else:
             ###TQQQ Or Not ###
@@ -54,10 +54,10 @@ def execute_strategy():
         ### Russell Rat FTLT - No TMF Check ###
         if df['SMR_600'][df['ticker'] == 'SHY'].values[0] < 0:
             if df['RSI_11'][df['ticker'] == 'IEF'].values[0] > df['RSI_16'][df['ticker'] == 'IWM'].values[0]:
-                alloc_tkr = ['FAS', 'DRN', 'TNA', 'LABU', 'URTY', 'HIBL', 'EDC']
+                alloc_tkr = cfg.long_tkr
                 alloc_df = df[df['ticker'].isin(alloc_tkr)]
             else:
-                alloc_tkr = ['FAZ', 'DRV', 'TZA', 'LABD', 'SRTY', 'HIBS', 'EDZ']
+                alloc_tkr = cfg.short_tkr
                 alloc_df = df[df['ticker'].isin(alloc_tkr)]
         else:
             ###TQQQ Or Not ###
@@ -73,6 +73,10 @@ def execute_strategy():
     curr_alloc_df['PCTRET'] = (curr_alloc_df['PCTRET'] * 100).round(4)
     curr_alloc_df = curr_alloc_df.rename(columns={'PCTRET': 'pctreturn'})
     curr_alloc_df['date'] = pd.to_datetime(curr_alloc_df['date']).dt.strftime('%m/%d/%Y')
+
+    curr_alloc_df['pct_alloc'] = (1 / curr_alloc_df['ticker'].count() * 100).round(0)
+
+    curr_alloc_df = (curr_alloc_df.groupby(['strategy_name', 'date', 'ticker', 'close', 'pctreturn']).agg({'pct_alloc': 'sum'}).reset_index())
 
     return curr_alloc_df
 
