@@ -9,6 +9,8 @@ russell_tkr = ['URTY', 'SRTY']
 beta_tkr = ['HIBL', 'HIBS']
 foreign_tkr = ['EDC', 'EDZ']
 retail_tkr = ['RETL','EMTY']
+long_tkr = ['FAS','DRN','TNA','LABU','URTY','HIBL','EDC','RETL']
+short_tkr = ['FAZ','DRV','TZA','LABD','SRTY','HIBS','EDZ','EMTY']
 sym_list = tkr + bank_tkr + house_tkr + smallcap_tkr + lab_tkr + russell_tkr + beta_tkr + foreign_tkr + retail_tkr
 sym_list = list(set(sym_list))
 
