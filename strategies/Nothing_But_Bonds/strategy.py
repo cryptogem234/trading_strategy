@@ -72,6 +72,10 @@ def execute_strategy():
 
     #curr_alloc_df = (curr_alloc_df.groupby(['strategy_name', 'eff_date']).agg({'ticker': lambda x: ' , '.join(x)}).reset_index())
 
+    curr_alloc_df['pct_alloc'] = (1 / curr_alloc_df['ticker'].count() * 100).round(0)
+
+    curr_alloc_df = (curr_alloc_df.groupby(['strategy_name', 'date', 'ticker', 'close', 'pctreturn']).agg({'pct_alloc': 'sum'}).reset_index())
+
     return curr_alloc_df
 
 
