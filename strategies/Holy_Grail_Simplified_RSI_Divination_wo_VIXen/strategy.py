@@ -64,11 +64,12 @@ def execute_strategy():
                     if df['close'][df['ticker'] == 'QLD'].values[0] > df['SMA_20'][df['ticker'] == 'QLD'].values[0]:
                         alloc_df = df[df['ticker'].isin(['TQQQ', 'STIP'])].sort_values(by='RSI' + '_' + '11',ascending=True).head(1)
                     else:
-                        # if df['SMR_20'][df['ticker'] == 'TLT'].values[0] > df['SMR_20'][df['ticker'] == 'UDN'].values[0]:
-                        alloc_df1 = df[df['ticker'].isin(['TLT', 'SQQQ'])].sort_values(by='RSI' + '_' + '11',ascending=False).head(1)
-                        alloc_df2 = df[df['ticker'].isin(['UUP', 'SQQQ'])].sort_values(by='RSI' + '_' + '10',ascending=True).head(1)
-                        alloc_df3 = df[df['ticker'].isin(['UGL', 'SQQQ'])].sort_values(by='RSI' + '_' + '12',ascending=True).head(1)
-                        alloc_df = pd.concat([alloc_df1,alloc_df2,alloc_df3], ignore_index=True, sort=False)
+                        if df['SMR_20'][df['ticker'] == 'TLT'].values[0] > df['SMR_20'][df['ticker'] == 'UDN'].values[0]:
+                            alloc_df1 = df[df['ticker'].isin(['TLT', 'SQQQ'])].sort_values(by='RSI' + '_' + '11',ascending=False).head(1)
+                        else:
+                            alloc_df1 = df[df['ticker'].isin(['UUP', 'SQQQ'])].sort_values(by='RSI' + '_' + '10',ascending=True).head(1)
+                        alloc_df2 = df[df['ticker'].isin(['UGL', 'SQQQ'])].sort_values(by='RSI' + '_' + '12',ascending=True).head(1)
+                        alloc_df = pd.concat([alloc_df1,alloc_df2], ignore_index=True, sort=False)
 
     alloc_df['strategy_name'] = cfg.strategy_name
     curr_alloc_df = alloc_df[['strategy_name', 'date', 'ticker', 'close', 'PCTRET']]
@@ -76,6 +77,10 @@ def execute_strategy():
     curr_alloc_df['PCTRET'] = (curr_alloc_df['PCTRET'] * 100).round(4)
     curr_alloc_df = curr_alloc_df.rename(columns={'PCTRET': 'pctreturn'})
     curr_alloc_df['date'] = pd.to_datetime(curr_alloc_df['date']).dt.strftime('%m/%d/%Y')
+
+    curr_alloc_df['pct_alloc'] = (1 / curr_alloc_df['ticker'].count() * 100).round(0)
+
+    curr_alloc_df = (curr_alloc_df.groupby(['strategy_name', 'date', 'ticker', 'close', 'pctreturn']).agg({'pct_alloc': 'sum'}).reset_index())
 
     #curr_alloc_df = (curr_alloc_df.groupby(['strategy_name', 'eff_date']).agg({'ticker': lambda x: ' , '.join(x)}).reset_index())
 
