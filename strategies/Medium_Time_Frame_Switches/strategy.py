@@ -42,20 +42,24 @@ def execute_strategy():
     alloc_df_rsi = pd.concat([alloc_df1, alloc_df2, alloc_df3, alloc_df4, alloc_df5], ignore_index=True, sort=False)
 
     alloc_df_rsi = alloc_df_rsi.sort_values(by='STDR_37', ascending=False).head(4)
+    alloc_df_rsi = alloc_df_rsi.sort_values(by='SMR_60', ascending=False).head(2)
     alloc_df_rsi['strategy_typ'] = '60 Day RSI'
 
 
     ### 20 Day BND Vs 60 Day SH ###
     alloc_df_20d_bnd_60d_sh = stg.bnd20_sh60_v1(df)
     alloc_df_20d_bnd_60d_sh['strategy_typ'] = '20 Day BND Vs 60 Day SH'
+    alloc_df_20d_bnd_60d_sh = alloc_df_20d_bnd_60d_sh.sort_values(by='SMR_60', ascending=False).head(2)
 
     ### 60 Day BND vs BIL ###
     alloc_df_60d_bnd_bil = stg.bnd60_bil_v1(df)
     alloc_df_60d_bnd_bil['strategy_typ'] = '60 Day BND vs BIL'
+    alloc_df_60d_bnd_bil = alloc_df_60d_bnd_bil.sort_values(by='SMR_60', ascending=False).head(2)
 
     ### V1 BWC: Sub-Zero RSI MA Crossover (BT June 2 2015) Spicy Edition incl. UVXY & Extreme Beta ###
     alloc_df_rsi_crossover = stg.rsi_crossover(df)
     alloc_df_rsi_crossover['strategy_typ'] = 'Sub-Zero RSI MA Crossover'
+    alloc_df_rsi_crossover = alloc_df_rsi_crossover.sort_values(by='SMR_60', ascending=False).head(2)
 
     alloc_df = pd.concat([alloc_df_rsi, alloc_df_20d_bnd_60d_sh, alloc_df_60d_bnd_bil, alloc_df_rsi_crossover], ignore_index=True, sort=False)
 
@@ -70,4 +74,3 @@ def execute_strategy():
 
     curr_alloc_df = (curr_alloc_df.groupby(['strategy_name', 'date', 'ticker', 'close', 'pctreturn']).agg({'pct_alloc': 'sum'}).reset_index())
     return curr_alloc_df
-
