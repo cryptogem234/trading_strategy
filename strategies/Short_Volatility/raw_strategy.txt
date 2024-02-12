@@ -1,0 +1,168 @@
+(defsymphony
+ "Copy of Short Volatility"
+ {:rebalance-frequency :daily}
+ (weight-equal
+  [(group
+    "200d SPY Cross Detector"
+    [(weight-equal
+      [(if
+        (>
+         (current-price "SPY")
+         (moving-average-price "SPY" {:window 200}))
+        [(weight-equal
+          [(if
+            (<
+             (moving-average-price "SPY" {:window 3})
+             (moving-average-price "SPY" {:window 200}))
+            [(weight-equal
+              [(filter
+                (rsi {:window 10})
+                (select-top 1)
+                [(asset "TQQQ") (asset "TMF")])
+               (filter
+                (rsi {:window 10})
+                (select-top 1)
+                [(asset "UPRO") (asset "TECL") (asset "UGL")])])]
+            [(group
+              "Insert Strategy Here (Bullish leaning)"
+              [(weight-inverse-volatility
+                26
+                [(group
+                  "Short Volatility"
+                  [(weight-equal
+                    [(if
+                      (> (rsi "QQQ" {:window 10}) 79)
+                      [(asset "UVXY")]
+                      [(weight-equal
+                        [(if
+                          (> (rsi "SPY" {:window 10}) 80)
+                          [(asset "UVXY")]
+                          [(weight-equal
+                            [(if
+                              (< (rsi "QQQ" {:window 10}) 31)
+                              [(asset "TQQQ")]
+                              [(weight-equal
+                                [(if
+                                  (>
+                                   (rsi "IEF" {:window 10})
+                                   (rsi "PSQ" {:window 20}))
+                                  [(asset "SVXY")]
+                                  [(asset "PSQ")])])])])])])])])])
+                 (group
+                  "Long TQQQ"
+                  [(weight-equal
+                    [(if
+                      (>
+                       (current-price "SPY")
+                       (moving-average-price "SPY" {:window 200}))
+                      [(weight-equal
+                        [(if
+                          (> (rsi "QQQ" {:window 10}) 79)
+                          [(asset "UVXY")]
+                          [(weight-equal
+                            [(if
+                              (> (rsi "SPY" {:window 10}) 80)
+                              [(asset "UVXY")]
+                              [(weight-equal [(asset "TQQQ")])])])])])]
+                      [(weight-equal
+                        [(if
+                          (<
+                           (current-price "QQQ")
+                           (moving-average-price "QQQ" {:window 20}))
+                          [(weight-equal [(asset "SQQQ")])]
+                          [(weight-equal
+                            [(if
+                              (< (rsi "PSQ" {:window 10}) 31)
+                              [(asset "SQQQ")]
+                              [(asset "TQQQ")])])])])])])])])])])])]
+        [(weight-equal
+          [(group
+            "Bearish Protection"
+            [(weight-equal
+              [(if
+                (>
+                 (moving-average-price "SPY" {:window 3})
+                 (moving-average-price "SPY" {:window 200}))
+                [(weight-equal
+                  [(filter
+                    (rsi {:window 10})
+                    (select-bottom 1)
+                    [(asset "SQQQ") (asset "UGL")])
+                   (filter
+                    (rsi {:window 10})
+                    (select-top 1)
+                    [(asset "SPXS") (asset "TYO")])])]
+                [(weight-equal
+                  [(group
+                    "Insert Strategy Here (Bearish leaning)"
+                    [(weight-equal
+                      [(group
+                        "Short Volatility"
+                        [(weight-equal
+                          [(if
+                            (> (rsi "QQQ" {:window 10}) 79)
+                            [(asset "UVXY")]
+                            [(weight-equal
+                              [(if
+                                (> (rsi "SPY" {:window 10}) 80)
+                                [(asset "UVXY")]
+                                [(weight-equal
+                                  [(if
+                                    (< (rsi "QQQ" {:window 10}) 31)
+                                    [(asset "TQQQ")]
+                                    [(weight-equal
+                                      [(if
+                                        (>
+                                         (rsi "IEF" {:window 10})
+                                         (rsi "PSQ" {:window 20}))
+                                        [(asset "SVXY")]
+                                        [(asset
+                                          "BTAL")])])])])])])])])])
+                       (group
+                        "Long TQQQ"
+                        [(weight-equal
+                          [(if
+                            (>
+                             (current-price "SPY")
+                             (moving-average-price
+                              "SPY"
+                              {:window 200}))
+                            [(weight-equal
+                              [(if
+                                (> (rsi "QQQ" {:window 10}) 79)
+                                [(asset "UVXY")]
+                                [(weight-equal
+                                  [(if
+                                    (> (rsi "SPY" {:window 10}) 80)
+                                    [(asset "UVXY")]
+                                    [(weight-equal
+                                      [(asset "TQQQ")])])])])])]
+                            [(weight-equal
+                              [(if
+                                (< (rsi "QQQ" {:window 10}) 31)
+                                [(asset "TECL")]
+                                [(weight-equal
+                                  [(if
+                                    (< (rsi "SPY" {:window 10}) 30)
+                                    [(asset "UPRO")]
+                                    [(weight-equal
+                                      [(if
+                                        (<
+                                         (current-price "QQQ")
+                                         (moving-average-price
+                                          "QQQ"
+                                          {:window 20}))
+                                        [(weight-equal
+                                          [(filter
+                                            (rsi {:window 10})
+                                            (select-top 1)
+                                            [(asset "SQQQ")
+                                             (asset "TLT")])])]
+                                        [(weight-equal
+                                          [(if
+                                            (<
+                                             (rsi "PSQ" {:window 10})
+                                             31)
+                                            [(asset "SQQQ")]
+                                            [(asset
+                                              "TQQQ")])])])])])])])])])])])])])])])])])])])])])]))
