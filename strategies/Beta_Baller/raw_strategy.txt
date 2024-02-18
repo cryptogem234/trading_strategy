@@ -1,0 +1,945 @@
+(defsymphony
+ "Copy of  \"V3.0.4.2a\" [HTX anti-twitch]| Beta Baller + TCCC | Deez, BrianE, HinnomTX, DereckN, Garen, DJKeyhole, comrade"
+ {:rebalance-threshold 0.1}
+ (weight-equal
+  [(group
+    "\"V3.0.4.2a\" [HTX anti-twitch]| Beta Baller + TCCC | Deez, BrianE, HinnomTX, DereckN, Garen, DJKeyhole, comrade"
+    [(weight-equal
+      [(if
+        (> (rsi "SPY" {:window 10}) 79)
+        [(group
+          "Overbought S&P. Sell the rip. Buy volatility."
+          [(weight-equal
+            [(filter
+              (rsi {:window 13})
+              (select-bottom 1)
+              [(asset "UVXY") (asset "VIXY")])])])]
+        [(weight-equal
+          [(if
+            (< (rsi "BIL" {:window 10}) (rsi "TLH" {:window 10}))
+            [(weight-equal
+              [(if
+                (<= (rsi "SOXX" {:window 10}) 80)
+                [(weight-equal
+                  [(filter
+                    (max-drawdown {:window 5})
+                    (select-top 1)
+                    [(asset "SOXL") (asset "TYO")])])]
+                [(asset "SOXS")])])]
+            [(weight-equal
+              [(if
+                (< (rsi "SPY" {:window 6}) 27)
+                [(group
+                  "Extremely oversold S&P (low RSI). Double check with bond mkt before going long"
+                  [(weight-equal
+                    [(if
+                      (<
+                       (rsi "BSV" {:window 7})
+                       (rsi "SPHB" {:window 7}))
+                      [(weight-equal
+                        [(filter
+                          (rsi {:window 7})
+                          (select-bottom 1)
+                          [(asset "SOXS") (asset "SQQQ")])])]
+                      [(weight-equal
+                        [(filter
+                          (rsi {:window 7})
+                          (select-bottom 1)
+                          [(asset "SOXL") (asset "TECL")])])])])])]
+                [(group
+                  "V0.2.1 | TCCC Stop the Bleed | DJKeyhole | 1/2 of Momentum Mean Reversion"
+                  [(weight-equal
+                    [(if
+                      (< (rsi "SPY" {:window 10}) 30)
+                      [(group
+                        "V1.2 | Five and Below | DJKeyhole | No Low Volume LETFs"
+                        [(weight-equal
+                          [(filter
+                            (rsi {:window 10})
+                            (select-bottom 1)
+                            [(asset "TECL")
+                             (asset "TQQQ")
+                             (asset "SPXL")
+                             (asset "SOXL")
+                             (asset "UPRO")
+                             (asset "SHY")])])])]
+                      [(weight-equal
+                        [(group
+                          "Bear Stock Market - High Inflation - [STRIPPED] V2.0.2b | A Better LETF Basket | DJKeyhole | BIL and TMV"
+                          [(weight-equal
+                            [(if
+                              (>
+                               (moving-average-return
+                                "TLT"
+                                {:window 100})
+                               (moving-average-return
+                                "BIL"
+                                {:window 100}))
+                              [(group
+                                "A.B: Medium term TLT may be overbought*"
+                                [(weight-equal
+                                  [(if
+                                    (<
+                                     (moving-average-return
+                                      "SPTL"
+                                      {:window 20})
+                                     0)
+                                    [(group
+                                      "A.B.B.A: Risk Off, Rising Rates (TMV)*"
+                                      [(weight-equal
+                                        [(if
+                                          (<=
+                                           (exponential-moving-average-price
+                                            "SPY"
+                                            {:window 210})
+                                           (moving-average-price
+                                            "SPY"
+                                            {:window 360}))
+                                          [(weight-equal
+                                            [(if
+                                              (<
+                                               (rsi
+                                                "TQQQ"
+                                                {:window 10})
+                                               30)
+                                              [(weight-equal
+                                                [(filter
+                                                  (moving-average-return
+                                                   {:window 5})
+                                                  (select-bottom 1)
+                                                  [(asset "TECL")
+                                                   (asset "TQQQ")
+                                                   (asset "SOXL")
+                                                   (asset "UPRO")])])]
+                                              [(weight-equal
+                                                [(if
+                                                  (<=
+                                                   (moving-average-return
+                                                    "SH"
+                                                    {:window 5})
+                                                   (moving-average-return
+                                                    "TLH"
+                                                    {:window 5}))
+                                                  [(weight-equal
+                                                    [(filter
+                                                      (cumulative-return
+                                                       {:window 5})
+                                                      (select-top 1)
+                                                      [(asset "SQQQ")
+                                                       (asset "EUO")
+                                                       (asset
+                                                        "YCS")])])]
+                                                  [(weight-equal
+                                                    [(filter
+                                                      (moving-average-return
+                                                       {:window 5})
+                                                      (select-bottom 1)
+                                                      [(asset "TECL")
+                                                       (asset "TQQQ")
+                                                       (asset "SOXL")
+                                                       (asset
+                                                        "CURE")])])])])])])]
+                                          [(group
+                                            "Go Do Something Else"
+                                            [(weight-specified
+                                              0.5
+                                              (filter
+                                               (moving-average-return
+                                                {:window 21})
+                                               (select-bottom 1)
+                                               [(asset "BTAL")
+                                                (asset "UGL")])
+                                              0
+                                              (filter
+                                               (moving-average-return
+                                                {:window 5})
+                                               (select-bottom 1)
+                                               [(asset "TECL")
+                                                (asset "TQQQ")
+                                                (asset "SOXL")
+                                                (asset "UPRO")
+                                                (asset "TMV")])
+                                              0.5
+                                              (asset "UUP"))])])])])]
+                                    [(group
+                                      "A.B.B.B: Risk Off, Falling Rates (TMF)*"
+                                      [(weight-equal
+                                        [(if
+                                          (<=
+                                           (exponential-moving-average-price
+                                            "SPY"
+                                            {:window 210})
+                                           (moving-average-price
+                                            "SPY"
+                                            {:window 360}))
+                                          [(weight-equal
+                                            [(if
+                                              (<
+                                               (rsi
+                                                "TQQQ"
+                                                {:window 10})
+                                               30)
+                                              [(weight-equal
+                                                [(filter
+                                                  (moving-average-return
+                                                   {:window 5})
+                                                  (select-bottom 1)
+                                                  [(asset "TECL")
+                                                   (asset "TQQQ")
+                                                   (asset "SOXL")])])]
+                                              [(weight-equal
+                                                [(if
+                                                  (>=
+                                                   (cumulative-return
+                                                    "UUP"
+                                                    {:window 2})
+                                                   1)
+                                                  [(weight-equal
+                                                    [(filter
+                                                      (cumulative-return
+                                                       {:window 5})
+                                                      (select-top 1)
+                                                      [(asset "TECS")
+                                                       (asset "SOXS")
+                                                       (asset
+                                                        "SQQQ")])])]
+                                                  [(weight-equal
+                                                    [(if
+                                                      (>
+                                                       (cumulative-return
+                                                        "SPY"
+                                                        {:window 1})
+                                                       1)
+                                                      [(weight-equal
+                                                        [(filter
+                                                          (cumulative-return
+                                                           {:window 5})
+                                                          (select-top
+                                                           1)
+                                                          [(asset
+                                                            "ERX")
+                                                           (asset
+                                                            "EUO")
+                                                           (asset
+                                                            "YCS")])])]
+                                                      [(weight-equal
+                                                        [(filter
+                                                          (moving-average-return
+                                                           {:window 5})
+                                                          (select-bottom
+                                                           1)
+                                                          [(asset
+                                                            "SOXL")
+                                                           (asset
+                                                            "EWZ")
+                                                           (asset
+                                                            "UMDD")
+                                                           (asset
+                                                            "USD")])])])])])])])])]
+                                          [(weight-equal
+                                            [(if
+                                              (>
+                                               (moving-average-return
+                                                "SPY"
+                                                {:window 210})
+                                               (moving-average-return
+                                                "DBC"
+                                                {:window 360}))
+                                              [(weight-equal
+                                                [(if
+                                                  (<
+                                                   (cumulative-return
+                                                    "TQQQ"
+                                                    {:window 6})
+                                                   -10)
+                                                  [(weight-equal
+                                                    [(if
+                                                      (>
+                                                       (cumulative-return
+                                                        "TQQQ"
+                                                        {:window 1})
+                                                       5.5)
+                                                      [(weight-equal
+                                                        [(asset
+                                                          "UVXY")])]
+                                                      [(weight-equal
+                                                        [(if
+                                                          (<
+                                                           (rsi
+                                                            "BIL"
+                                                            {:window
+                                                             7})
+                                                           (rsi
+                                                            "IEF"
+                                                            {:window
+                                                             7}))
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                5})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "SOXL")])])]
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (cumulative-return
+                                                               {:window
+                                                                5})
+                                                              (select-top
+                                                               1)
+                                                              [(asset
+                                                                "EWZ")
+                                                               (asset
+                                                                "UUP")
+                                                               (asset
+                                                                "TMF")
+                                                               (asset
+                                                                "UCO")])])])])])])]
+                                                  [(weight-equal
+                                                    [(if
+                                                      (<
+                                                       (rsi
+                                                        "BIL"
+                                                        {:window 7})
+                                                       (rsi
+                                                        "IEF"
+                                                        {:window 7}))
+                                                      [(weight-equal
+                                                        [(filter
+                                                          (moving-average-return
+                                                           {:window 5})
+                                                          (select-bottom
+                                                           1)
+                                                          [(asset
+                                                            "TECL")
+                                                           (asset
+                                                            "TQQQ")
+                                                           (asset
+                                                            "SPXL")
+                                                           (asset
+                                                            "QLD")
+                                                           (asset
+                                                            "USD")])])]
+                                                      [(weight-equal
+                                                        [(filter
+                                                          (cumulative-return
+                                                           {:window 5})
+                                                          (select-top
+                                                           1)
+                                                          [(asset
+                                                            "EWZ")
+                                                           (asset
+                                                            "UUP")
+                                                           (asset
+                                                            "TMF")])])])])])])]
+                                              [(group
+                                                "Defense | Modified"
+                                                [(weight-equal
+                                                  [(if
+                                                    (>
+                                                     (stdev-return
+                                                      "DBC"
+                                                      {:window 20})
+                                                     (stdev-return
+                                                      "SPY"
+                                                      {:window 20}))
+                                                    [(weight-equal
+                                                      [(filter
+                                                        (rsi
+                                                         {:window 5})
+                                                        (select-bottom
+                                                         1)
+                                                        [(asset "SHY")
+                                                         (asset "EWZ")
+                                                         (asset "GLD")
+                                                         (asset "SPXS")
+                                                         (asset "TECS")
+                                                         (asset "SOXS")
+                                                         (asset "UCO")
+                                                         (asset
+                                                          "YCS")])])]
+                                                    [(weight-equal
+                                                      [(if
+                                                        (<
+                                                         (rsi
+                                                          "BIL"
+                                                          {:window 7})
+                                                         (rsi
+                                                          "IEF"
+                                                          {:window 7}))
+                                                        [(weight-equal
+                                                          [(filter
+                                                            (moving-average-return
+                                                             {:window
+                                                              5})
+                                                            (select-bottom
+                                                             1)
+                                                            [(asset
+                                                              "SOXL")
+                                                             (asset
+                                                              "USD")
+                                                             (asset
+                                                              "TMF")])])]
+                                                        [(weight-equal
+                                                          [(filter
+                                                            (cumulative-return
+                                                             {:window
+                                                              5})
+                                                            (select-top
+                                                             1)
+                                                            [(asset
+                                                              "EWZ")
+                                                             (asset
+                                                              "SPXS")
+                                                             (asset
+                                                              "SOXS")
+                                                             (asset
+                                                              "UCO")
+                                                             (asset
+                                                              "YCS")])])])])])])])])])])])])])])])]
+                              [(group
+                                "B: If long term TLT is trending down, safety: Long Term, 2 Least Volatile*"
+                                [(weight-equal
+                                  [(if
+                                    (<
+                                     (moving-average-return
+                                      "SPTL"
+                                      {:window 20})
+                                     0)
+                                    [(group
+                                      "B.A.A: Risk Off, Rising Rates (TMV)* - LETF Basket^"
+                                      [(weight-equal
+                                        [(if
+                                          (<=
+                                           (exponential-moving-average-price
+                                            "SPY"
+                                            {:window 210})
+                                           (moving-average-price
+                                            "SPY"
+                                            {:window 360}))
+                                          [(weight-equal
+                                            [(if
+                                              (<
+                                               (rsi
+                                                "TQQQ"
+                                                {:window 10})
+                                               30)
+                                              [(weight-equal
+                                                [(filter
+                                                  (moving-average-return
+                                                   {:window 5})
+                                                  (select-top 1)
+                                                  [(asset "TQQQ")
+                                                   (asset "SOXL")
+                                                   (asset "UPRO")])])]
+                                              [(weight-equal
+                                                [(if
+                                                  (>=
+                                                   (cumulative-return
+                                                    "UUP"
+                                                    {:window 2})
+                                                   1)
+                                                  [(weight-equal
+                                                    [(filter
+                                                      (cumulative-return
+                                                       {:window 5})
+                                                      (select-bottom 1)
+                                                      [(asset "SPXS")
+                                                       (asset "TECS")
+                                                       (asset "SOXS")
+                                                       (asset "SQQQ")
+                                                       (asset
+                                                        "ERX")])])]
+                                                  [(weight-equal
+                                                    [(if
+                                                      (>=
+                                                       (moving-average-return
+                                                        "SH"
+                                                        {:window 5})
+                                                       (moving-average-return
+                                                        "STIP"
+                                                        {:window 5}))
+                                                      [(weight-equal
+                                                        [(filter
+                                                          (cumulative-return
+                                                           {:window 5})
+                                                          (select-top
+                                                           1)
+                                                          [(asset
+                                                            "SOXS")
+                                                           (asset
+                                                            "SQQQ")
+                                                           (asset
+                                                            "EPI")
+                                                           (asset
+                                                            "TMV")])])]
+                                                      [(weight-equal
+                                                        [(if
+                                                          (>
+                                                           (moving-average-return
+                                                            "TMF"
+                                                            {:window
+                                                             5})
+                                                           0)
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                5})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "TECL")
+                                                               (asset
+                                                                "SOXL")
+                                                               (asset
+                                                                "TNA")])])]
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                3})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "TECL")
+                                                               (asset
+                                                                "SOXL")
+                                                               (asset
+                                                                "TMV")
+                                                               (asset
+                                                                "TQQQ")])])])])])])])])])])]
+                                          [(weight-equal
+                                            [(if
+                                              (>
+                                               (moving-average-return
+                                                "SPY"
+                                                {:window 210})
+                                               (moving-average-return
+                                                "DBC"
+                                                {:window 360}))
+                                              [(weight-equal
+                                                [(if
+                                                  (>
+                                                   (rsi
+                                                    "TQQQ"
+                                                    {:window 11})
+                                                   77)
+                                                  [(weight-equal
+                                                    [(asset "UVXY")
+                                                     (asset "SQQQ")])]
+                                                  [(weight-equal
+                                                    [(if
+                                                      (<
+                                                       (cumulative-return
+                                                        "TQQQ"
+                                                        {:window 6})
+                                                       -10)
+                                                      [(weight-equal
+                                                        [(if
+                                                          (>
+                                                           (cumulative-return
+                                                            "TQQQ"
+                                                            {:window
+                                                             1})
+                                                           5.5)
+                                                          [(weight-equal
+                                                            [(asset
+                                                              "UVXY")])]
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                5})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "SOXL")
+                                                               (asset
+                                                                "TMV")])])])])]
+                                                      [(weight-equal
+                                                        [(if
+                                                          (<
+                                                           (moving-average-return
+                                                            "SH"
+                                                            {:window
+                                                             5})
+                                                           (moving-average-return
+                                                            "STIP"
+                                                            {:window
+                                                             5}))
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                5})
+                                                              (select-top
+                                                               2)
+                                                              [(asset
+                                                                "TQQQ")
+                                                               (asset
+                                                                "SOXL")
+                                                               (asset
+                                                                "TNA")
+                                                               (asset
+                                                                "UPRO")
+                                                               (asset
+                                                                "TECL")
+                                                               (asset
+                                                                "TMV")])])]
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                21})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "BTAL")
+                                                               (asset
+                                                                "UGL")])])])])])])])])]
+                                              [(group
+                                                "Defense | Modified"
+                                                [(weight-equal
+                                                  [(if
+                                                    (>
+                                                     (stdev-return
+                                                      "DBC"
+                                                      {:window 20})
+                                                     (stdev-return
+                                                      "SPY"
+                                                      {:window 20}))
+                                                    [(weight-equal
+                                                      [(if
+                                                        (>=
+                                                         (stdev-return
+                                                          "DBC"
+                                                          {:window 10})
+                                                         3)
+                                                        [(weight-equal
+                                                          [(if
+                                                            (<=
+                                                             (stdev-return
+                                                              "TMV"
+                                                              {:window
+                                                               5})
+                                                             (stdev-return
+                                                              "DBC"
+                                                              {:window
+                                                               5}))
+                                                            [(asset
+                                                              "TMV")]
+                                                            [(asset
+                                                              "DBC")])])]
+                                                        [(weight-equal
+                                                          [(if
+                                                            (<
+                                                             (rsi
+                                                              "BIL"
+                                                              {:window
+                                                               7})
+                                                             (rsi
+                                                              "IEF"
+                                                              {:window
+                                                               7}))
+                                                            [(weight-equal
+                                                              [(filter
+                                                                (moving-average-return
+                                                                 {:window
+                                                                  5})
+                                                                (select-top
+                                                                 1)
+                                                                [(asset
+                                                                  "TMV")
+                                                                 (asset
+                                                                  "SOXS")
+                                                                 (asset
+                                                                  "SPXU")])])]
+                                                            [(weight-equal
+                                                              [(filter
+                                                                (cumulative-return
+                                                                 {:window
+                                                                  5})
+                                                                (select-bottom
+                                                                 1)
+                                                                [(asset
+                                                                  "EFA")
+                                                                 (asset
+                                                                  "EEM")
+                                                                 (asset
+                                                                  "SPXS")
+                                                                 (asset
+                                                                  "SOXS")
+                                                                 (asset
+                                                                  "UCO")
+                                                                 (asset
+                                                                  "TMV")])])])])])])]
+                                                    [(weight-equal
+                                                      [(if
+                                                        (<
+                                                         (rsi
+                                                          "BIL"
+                                                          {:window 7})
+                                                         (rsi
+                                                          "IEF"
+                                                          {:window 7}))
+                                                        [(weight-equal
+                                                          [(filter
+                                                            (moving-average-return
+                                                             {:window
+                                                              5})
+                                                            (select-bottom
+                                                             1)
+                                                            [(asset
+                                                              "EPI")
+                                                             (asset
+                                                              "SOXL")
+                                                             (asset
+                                                              "UPRO")])])]
+                                                        [(weight-equal
+                                                          [(filter
+                                                            (cumulative-return
+                                                             {:window
+                                                              5})
+                                                            (select-top
+                                                             1)
+                                                            [(asset
+                                                              "EWZ")
+                                                             (asset
+                                                              "TECS")
+                                                             (asset
+                                                              "SOXS")
+                                                             (asset
+                                                              "EUO")
+                                                             (asset
+                                                              "YCS")
+                                                             (asset
+                                                              "TMV")])])])])])])])])])])])])]
+                                    [(group
+                                      "B.A.B: Risk Off, Falling Rates (TMF)* - LETF Basket"
+                                      [(weight-equal
+                                        [(if
+                                          (<=
+                                           (exponential-moving-average-price
+                                            "SPY"
+                                            {:window 210})
+                                           (moving-average-price
+                                            "SPY"
+                                            {:window 360}))
+                                          [(weight-equal
+                                            [(if
+                                              (<=
+                                               (cumulative-return
+                                                "SPY"
+                                                {:window 1})
+                                               -2)
+                                              [(weight-equal
+                                                [(filter
+                                                  (cumulative-return
+                                                   {:window 5})
+                                                  (select-top 1)
+                                                  [(asset "SPXS")
+                                                   (asset "TECS")
+                                                   (asset "SOXS")
+                                                   (asset "SQQQ")])])]
+                                              [(weight-equal
+                                                [(if
+                                                  (<
+                                                   (moving-average-return
+                                                    "IEF"
+                                                    {:window 10})
+                                                   (moving-average-return
+                                                    "SH"
+                                                    {:window 10}))
+                                                  [(weight-equal
+                                                    [(filter
+                                                      (cumulative-return
+                                                       {:window 10})
+                                                      (select-top 1)
+                                                      [(asset "TMF")
+                                                       (asset "TYO")
+                                                       (asset "SPXS")
+                                                       (asset
+                                                        "SQQQ")])])]
+                                                  [(weight-equal
+                                                    [(filter
+                                                      (moving-average-return
+                                                       {:window 5})
+                                                      (select-bottom 1)
+                                                      [(asset "TECL")
+                                                       (asset "TQQQ")
+                                                       (asset "SOXL")
+                                                       (asset "BRZU")
+                                                       (asset
+                                                        "TMF")])])])])])])]
+                                          [(weight-equal
+                                            [(if
+                                              (>
+                                               (moving-average-return
+                                                "SPY"
+                                                {:window 210})
+                                               (moving-average-return
+                                                "DBC"
+                                                {:window 360}))
+                                              [(weight-equal
+                                                [(if
+                                                  (>
+                                                   (exponential-moving-average-price
+                                                    "SPY"
+                                                    {:window 210})
+                                                   (exponential-moving-average-price
+                                                    "SPY"
+                                                    {:window 360}))
+                                                  [(weight-equal
+                                                    [(if
+                                                      (<
+                                                       (cumulative-return
+                                                        "TQQQ"
+                                                        {:window 6})
+                                                       -10)
+                                                      [(weight-equal
+                                                        [(if
+                                                          (>
+                                                           (cumulative-return
+                                                            "TQQQ"
+                                                            {:window
+                                                             1})
+                                                           5.5)
+                                                          [(weight-equal
+                                                            [(asset
+                                                              "UVXY")])]
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                7})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "TECL")
+                                                               (asset
+                                                                "TQQQ")
+                                                               (asset
+                                                                "SPXL")
+                                                               (asset
+                                                                "EPI")
+                                                               (asset
+                                                                "SOXL")
+                                                               (asset
+                                                                "UPRO")
+                                                               (asset
+                                                                "QLD")
+                                                               (asset
+                                                                "EWZ")
+                                                               (asset
+                                                                "UMDD")
+                                                               (asset
+                                                                "PUI")
+                                                               (asset
+                                                                "USD")
+                                                               (asset
+                                                                "TMF")])])])])]
+                                                      [(weight-equal
+                                                        [(if
+                                                          (>
+                                                           (moving-average-return
+                                                            "IEF"
+                                                            {:window
+                                                             10})
+                                                           (moving-average-return
+                                                            "SH"
+                                                            {:window
+                                                             10}))
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                5})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "TECL")
+                                                               (asset
+                                                                "SPXL")
+                                                               (asset
+                                                                "EPI")
+                                                               (asset
+                                                                "SOXL")
+                                                               (asset
+                                                                "UPRO")
+                                                               (asset
+                                                                "UMDD")])
+                                                             (asset
+                                                              "TMF")])]
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (cumulative-return
+                                                               {:window
+                                                                5})
+                                                              (select-top
+                                                               1)
+                                                              [(asset
+                                                                "SOXS")
+                                                               (asset
+                                                                "TMF")])
+                                                             (filter
+                                                              (moving-average-return
+                                                               {:window
+                                                                21})
+                                                              (select-bottom
+                                                               1)
+                                                              [(asset
+                                                                "BTAL")
+                                                               (asset
+                                                                "UGL")])])])])])])]
+                                                  [(group
+                                                    "Unreachable"
+                                                    [(weight-specified
+                                                      1
+                                                      (asset "SHY")
+                                                      0
+                                                      (filter
+                                                       (rsi
+                                                        {:window 5})
+                                                       (select-bottom
+                                                        1)
+                                                       [(asset "SPXS")
+                                                        (asset "SQQQ")
+                                                        (asset "TECS")
+                                                        (asset
+                                                         "SOXS")]))])])])]
+                                              [(group
+                                                "Defense | Modified"
+                                                [(weight-equal
+                                                  [(if
+                                                    (>
+                                                     (stdev-return
+                                                      "DBC"
+                                                      {:window 20})
+                                                     (stdev-return
+                                                      "SPY"
+                                                      {:window 20}))
+                                                    [(weight-equal
+                                                      [(filter
+                                                        (rsi
+                                                         {:window 5})
+                                                        (select-bottom
+                                                         1)
+                                                        [(asset "SPXS")
+                                                         (asset "EPI")
+                                                         (asset "TECS")
+                                                         (asset "SOXS")
+                                                         (asset
+                                                          "SQQQ")])])]
+                                                    [(weight-equal
+                                                      [(filter
+                                                        (moving-average-return
+                                                         {:window 5})
+                                                        (select-top 1)
+                                                        [(asset "TECL")
+                                                         (asset "TQQQ")
+                                                         (asset "SOXL")
+                                                         (asset
+                                                          "TMF")])])])])])])])])])])])])])])])])])])])])])])])])])])])]))
