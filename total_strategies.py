@@ -8,6 +8,7 @@ from strategies.Holy_Grail_Simplified_RSI_Divination_wo_VIXen import strategy as
 from strategies.Simple_20d_BND_vs_60d_SH import strategy as bnd_20d_sh_60d
 from strategies.Medium_Time_Frame_Switches import strategy as medium_time_frame_switches
 from strategies.Short_Volatility import strategy as short_volatility
+from strategies.Beta_Baller import strategy as beta_baller
 
 def execute_tqqq_or_not_strategy():
     tqqq_or_not_strategy = tqqq_or_not.execute_strategy()
@@ -44,3 +45,7 @@ def execute_medium_time_frame_switches_strategy():
 def execute_short_volatility_strategy():
     short_volatility_strategy = short_volatility.execute_strategy()
     return short_volatility_strategy
+
+def execute_beta_baller_strategy():
+    beta_baller_strategy = beta_baller.execute_strategy()
+    return beta_baller_strategy

@@ -18,6 +18,7 @@ rat_ftlt = pd.DataFrame(columns=col_list)
 nothing_but_bonds = pd.DataFrame(columns=col_list)
 short_volatility_svxy = pd.DataFrame(columns=col_list)
 short_volatility = pd.DataFrame(columns=col_list)
+beta_baller = pd.DataFrame(columns=col_list)
 wam_ftlt = pd.DataFrame(columns=col_list)
 holy_grail = pd.DataFrame(columns=col_list)
 bnd_20d_sh_60d = pd.DataFrame(columns=col_list)
@@ -31,10 +32,11 @@ tables = [
     {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button3', 'name': 'Nothing but Bonds'},
     {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button4', 'name': 'Short Volatility SVXY'},
     {'id': 'short_volatility', 'df': short_volatility, 'button_id': 'refresh-button5', 'name': 'Short Volatility'},
-    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button6', 'name': 'WAM FTLT'},
-    {'id': 'holy_grail', 'df': holy_grail, 'button_id': 'refresh-button7', 'name': 'Holy Grail'},
-    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button8', 'name': 'Simple 20d BND vs 60d SH'},
-    {'id': 'medium_time_frame_switches', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button9', 'name': 'Medium Time Frame Switches'},
+    {'id': 'beta_baller', 'df': beta_baller, 'button_id': 'refresh-button6', 'name': 'Beta Baller'},
+    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button7', 'name': 'WAM FTLT'},
+    {'id': 'holy_grail', 'df': holy_grail, 'button_id': 'refresh-button8', 'name': 'Holy Grail'},
+    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button9', 'name': 'Simple 20d BND vs 60d SH'},
+    {'id': 'medium_time_frame_switches', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button10', 'name': 'Medium Time Frame Switches'},
 
 ]
 
