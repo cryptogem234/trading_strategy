@@ -9,6 +9,7 @@ from strategies.Simple_20d_BND_vs_60d_SH import strategy as bnd_20d_sh_60d
 from strategies.Medium_Time_Frame_Switches import strategy as medium_time_frame_switches
 from strategies.Short_Volatility import strategy as short_volatility
 from strategies.Beta_Baller import strategy as beta_baller
+from strategies.WMDYN_FTLT import strategy as wmdyn_ftlt
 
 def execute_tqqq_or_not_strategy():
     tqqq_or_not_strategy = tqqq_or_not.execute_strategy()
@@ -49,3 +50,7 @@ def execute_short_volatility_strategy():
 def execute_beta_baller_strategy():
     beta_baller_strategy = beta_baller.execute_strategy()
     return beta_baller_strategy
+
+def execute_wmdyn_ftlt_strategy():
+    wmdyn_ftlt_strategy = wmdyn_ftlt.execute_strategy()
+    return wmdyn_ftlt_strategy

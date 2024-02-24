@@ -23,30 +23,33 @@ wam_ftlt = pd.DataFrame(columns=col_list)
 holy_grail = pd.DataFrame(columns=col_list)
 bnd_20d_sh_60d = pd.DataFrame(columns=col_list)
 medium_time_frame_switches = pd.DataFrame(columns=col_list)
+wmdyn_ftlt = pd.DataFrame(columns=col_list)
+
 
 
 # Define a list of dictionaries for each table
 tables = [
-    {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button', 'name': 'TQQQ or Not'},
-    {'id': 'rat_ftlt', 'df': rat_ftlt, 'button_id': 'refresh-button2', 'name': 'RAT FTLT'},
-    {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button3', 'name': 'Nothing but Bonds'},
-    {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button4', 'name': 'Short Volatility SVXY'},
-    {'id': 'short_volatility', 'df': short_volatility, 'button_id': 'refresh-button5', 'name': 'Short Volatility'},
-    {'id': 'beta_baller', 'df': beta_baller, 'button_id': 'refresh-button6', 'name': 'Beta Baller'},
-    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button7', 'name': 'WAM FTLT'},
-    {'id': 'holy_grail', 'df': holy_grail, 'button_id': 'refresh-button8', 'name': 'Holy Grail'},
-    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button9', 'name': 'Simple 20d BND vs 60d SH'},
-    {'id': 'medium_time_frame_switches', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button10', 'name': 'Medium Time Frame Switches'},
+    {'id': 'beta_baller', 'df': beta_baller, 'button_id': 'refresh-button1', 'name': '1. Beta Baller'},
+    {'id': 'short_volatility', 'df': short_volatility, 'button_id': 'refresh-button2', 'name': '2. Short Volatility'},
+    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button3', 'name': '3. WAM FTLT'},
+    {'id': 'holy_grail', 'df': holy_grail, 'button_id': 'refresh-button4', 'name': '4. Holy Grail'},
+    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button5', 'name': '5. Simple 20d BND vs 60d SH'},
+    {'id': 'wmdyn_ftlt', 'df': wmdyn_ftlt, 'button_id': 'refresh-button6', 'name': '6. WMDYN FTLT'},
 
+    {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button7', 'name': '1. TQQQ or Not'},
+    {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button8', 'name': '2. Short Volatility SVXY'},
+    {'id': 'rat_ftlt', 'df': rat_ftlt, 'button_id': 'refresh-button9', 'name': '3. RAT FTLT'},
+    {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button10', 'name': '4. Nothing but Bonds'},
+    {'id': 'medium_time_frame_switches', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button11', 'name': '5. Medium Time Frame Switches'},
 ]
 
 # Define layout dynamically
 layout = [html.H1("Strategies List")]
 
 # Add Dash DataTable components for each table dynamically
-for table in tables:
+for idx, table in enumerate(tables):
     layout.extend([
-        html.H2(table['name'], style={'font-size': '1.5rem', 'margin-bottom': '0'}),
+        html.H3(table['name'], style={'font-size': '1.2rem', 'margin-bottom': '0'}),
         DataTable(
             id=table['id'],
             columns=[{'name': col, 'id': col} for col in table['df'].columns],
@@ -61,6 +64,10 @@ for table in tables:
         ]),
         html.Hr()  # Add a horizontal line for separation after each table
     ])
+
+    # Insert sub-heading after Table 5
+    if idx == 5:
+        layout.append(html.H2("-----Model Portfolios-------"))
 
 # Define callbacks dynamically
 for table in tables:
