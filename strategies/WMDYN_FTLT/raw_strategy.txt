@@ -1,0 +1,262 @@
+(defsymphony
+ "Copy of WMDYN FTLT: LBT SOXL Edition | Anansi + WHS | 2011-10-11"
+ {:rebalance-threshold 0.01}
+ (weight-equal
+  [(group
+    "WMDYN FTLT: LBT SOXL Edition | Anansi + WHS | 2011-10-11"
+    [(weight-equal
+      [(if
+        (> (rsi "TQQQ" {:window 10}) 79)
+        [(asset "UVXY")]
+        [(weight-equal
+          [(if
+            (> (rsi "XLK" {:window 10}) 79)
+            [(asset "UVXY")]
+            [(weight-equal
+              [(if
+                (> (rsi "VOX" {:window 10}) 79)
+                [(asset "UVXY")]
+                [(weight-equal
+                  [(if
+                    (> (rsi "VTV" {:window 10}) 79)
+                    [(asset "UVXY")]
+                    [(weight-equal
+                      [(if
+                        (> (rsi "SOXX" {:window 10}) 79)
+                        [(asset "UVXY")]
+                        [(weight-equal
+                          [(if
+                            (> (rsi "SPY" {:window 10}) 79)
+                            [(asset "UVXY")]
+                            [(weight-equal
+                              [(if
+                                (< (rsi "QQQ" {:window 14}) 30)
+                                [(asset "TECL")]
+                                [(weight-equal
+                                  [(if
+                                    (< (rsi "SOXX" {:window 14}) 30)
+                                    [(asset "SOXL")]
+                                    [(weight-equal
+                                      [(if
+                                        (< (rsi "SPY" {:window 5}) 25)
+                                        [(group
+                                          "Moderated SOXL"
+                                          [(weight-equal
+                                            [(asset "SOXL")
+                                             (group
+                                              "Rotator - SOXL/TECL/TLT/SVXY (5d RSI - T1)"
+                                              [(weight-equal
+                                                [(filter
+                                                  (rsi {:window 5})
+                                                  (select-top 1)
+                                                  [(asset "TLT")
+                                                   (asset "SVXY")
+                                                   (asset "SOXL")
+                                                   (asset
+                                                    "TECL")])])])])])]
+                                        [(weight-equal
+                                          [(if
+                                            (>
+                                             (stdev-return
+                                              "SPY"
+                                              {:window 10})
+                                             2.5)
+                                            [(group
+                                              "Rotator - UVXY/SPXU/TMF (5d RSI - T1)"
+                                              [(weight-equal
+                                                [(filter
+                                                  (rsi {:window 5})
+                                                  (select-top 1)
+                                                  [(asset "UVXY")
+                                                   (asset "TMF")
+                                                   (asset
+                                                    "SPXU")])])])]
+                                            [(weight-equal
+                                              [(if
+                                                (<
+                                                 (moving-average-return
+                                                  "BIL"
+                                                  {:window 100})
+                                                 (moving-average-return
+                                                  "TLT"
+                                                  {:window 100}))
+                                                [(group
+                                                  "BSC -> SOXL"
+                                                  [(weight-equal
+                                                    [(if
+                                                      (<
+                                                       (cumulative-return
+                                                        "TQQQ"
+                                                        {:window 6})
+                                                       -8)
+                                                      [(weight-equal
+                                                        [(if
+                                                          (>
+                                                           (cumulative-return
+                                                            "TQQQ"
+                                                            {:window
+                                                             1})
+                                                           4)
+                                                          [(asset
+                                                            "UVXY")]
+                                                          [(asset
+                                                            "SOXL")])])]
+                                                      [(group
+                                                        "Moderated SOXL"
+                                                        [(weight-equal
+                                                          [(asset
+                                                            "SOXL")
+                                                           (group
+                                                            "Rotator - SOXL/TECL/TLT/SVXY (5d RSI - T1)"
+                                                            [(weight-equal
+                                                              [(filter
+                                                                (rsi
+                                                                 {:window
+                                                                  5})
+                                                                (select-top
+                                                                 1)
+                                                                [(asset
+                                                                  "TLT")
+                                                                 (asset
+                                                                  "SVXY")
+                                                                 (asset
+                                                                  "SOXL")
+                                                                 (asset
+                                                                  "TECL")])])])])])])])])]
+                                                [(weight-equal
+                                                  [(if
+                                                    (>
+                                                     (rsi
+                                                      "IEF"
+                                                      {:window 10})
+                                                     (rsi
+                                                      "PSQ"
+                                                      {:window 20}))
+                                                    [(group
+                                                      "Moderated SOXL"
+                                                      [(weight-equal
+                                                        [(asset "SOXL")
+                                                         (group
+                                                          "Rotator - SOXL/TECL/TLT/SVXY (5d RSI - T1)"
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (rsi
+                                                               {:window
+                                                                5})
+                                                              (select-top
+                                                               1)
+                                                              [(asset
+                                                                "TLT")
+                                                               (asset
+                                                                "SVXY")
+                                                               (asset
+                                                                "SOXL")
+                                                               (asset
+                                                                "TECL")])])])])])]
+                                                    [(weight-equal
+                                                      [(if
+                                                        (>
+                                                         (current-price
+                                                          "SPY")
+                                                         (moving-average-price
+                                                          "SPY"
+                                                          {:window
+                                                           200}))
+                                                        [(group
+                                                          "Rotator - BTAL/SPLV/PDBC/UGL (5d RSI - T2)"
+                                                          [(weight-equal
+                                                            [(filter
+                                                              (rsi
+                                                               {:window
+                                                                5})
+                                                              (select-top
+                                                               2)
+                                                              [(asset
+                                                                "BTAL")
+                                                               (asset
+                                                                "SPLV")
+                                                               (asset
+                                                                "DBC")
+                                                               (asset
+                                                                "UGL")])])])]
+                                                        [(weight-equal
+                                                          [(if
+                                                            (>
+                                                             (rsi
+                                                              "SPY"
+                                                              {:window
+                                                               60})
+                                                             50)
+                                                            [(group
+                                                              "Moderated SOXS"
+                                                              [(weight-equal
+                                                                [(asset
+                                                                  "SOXS")
+                                                                 (group
+                                                                  "Rotator - FNGD/TECS/TLT (5d RSI - T1)"
+                                                                  [(weight-equal
+                                                                    [(filter
+                                                                      (rsi
+                                                                       {:window
+                                                                        5})
+                                                                      (select-top
+                                                                       1)
+                                                                      [(asset
+                                                                        "TLT")
+                                                                       (asset
+                                                                        "SOXS")
+                                                                       (asset
+                                                                        "TECS")])])])])])]
+                                                            [(weight-equal
+                                                              [(if
+                                                                (<
+                                                                 (rsi
+                                                                  "IEF"
+                                                                  {:window
+                                                                   200})
+                                                                 (rsi
+                                                                  "TLT"
+                                                                  {:window
+                                                                   200}))
+                                                                [(group
+                                                                  "Moderated SQQQ"
+                                                                  [(weight-equal
+                                                                    [(asset
+                                                                      "SQQQ")
+                                                                     (group
+                                                                      "Rotator - SQQQ/SOXS/TMV (5d RSI - T1)"
+                                                                      [(weight-equal
+                                                                        [(filter
+                                                                          (rsi
+                                                                           {:window
+                                                                            5})
+                                                                          (select-top
+                                                                           1)
+                                                                          [(asset
+                                                                            "TMV")
+                                                                           (asset
+                                                                            "SQQQ")
+                                                                           (asset
+                                                                            "SOXS")])])])])])]
+                                                                [(group
+                                                                  "Moderated SOXL"
+                                                                  [(weight-equal
+                                                                    [(asset
+                                                                      "SOXL")
+                                                                     (group
+                                                                      "Rotator - SOXL/TECL/TLT/SVXY (5d RSI - T1)"
+                                                                      [(weight-equal
+                                                                        [(filter
+                                                                          (rsi
+                                                                           {:window
+                                                                            5})
+                                                                          (select-top
+                                                                           1)
+                                                                          [(asset
+                                                                            "TLT")
+                                                                           (asset
+                                                                            "SVXY")
+                                                                           (asset
+                                                                            "SOXL")
+                                                                           (asset
+                                                                            "TECL")])])])])])])])])])])])])])])])])])])])])])])])])])])])])])])])])])])])])]))
