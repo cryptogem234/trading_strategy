@@ -24,7 +24,7 @@ holy_grail = pd.DataFrame(columns=col_list)
 bnd_20d_sh_60d = pd.DataFrame(columns=col_list)
 medium_time_frame_switches = pd.DataFrame(columns=col_list)
 wmdyn_ftlt = pd.DataFrame(columns=col_list)
-
+anansi_strategy = pd.DataFrame(columns=col_list)
 
 
 # Define a list of dictionaries for each table
@@ -40,7 +40,8 @@ tables = [
     {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button8', 'name': '2. Short Volatility SVXY'},
     {'id': 'rat_ftlt', 'df': rat_ftlt, 'button_id': 'refresh-button9', 'name': '3. RAT FTLT'},
     {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button10', 'name': '4. Nothing but Bonds'},
-    {'id': 'medium_time_frame_switches', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button11', 'name': '5. Medium Time Frame Switches'},
+    {'id': 'medium_time_frame_switches', 'df': medium_time_frame_switches, 'button_id': 'refresh-button11', 'name': '5. Medium Time Frame Switches'},
+    {'id': 'anansi_strategy', 'df': anansi_strategy, 'button_id': 'refresh-button12', 'name': '6. Anansi Portfolio'},
 ]
 
 # Define layout dynamically

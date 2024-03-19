@@ -10,6 +10,7 @@ from strategies.Medium_Time_Frame_Switches import strategy as medium_time_frame_
 from strategies.Short_Volatility import strategy as short_volatility
 from strategies.Beta_Baller import strategy as beta_baller
 from strategies.WMDYN_FTLT import strategy as wmdyn_ftlt
+from strategies.anansi import strategy as anansi_strategy
 
 def execute_tqqq_or_not_strategy():
     tqqq_or_not_strategy = tqqq_or_not.execute_strategy()
@@ -54,3 +55,7 @@ def execute_beta_baller_strategy():
 def execute_wmdyn_ftlt_strategy():
     wmdyn_ftlt_strategy = wmdyn_ftlt.execute_strategy()
     return wmdyn_ftlt_strategy
+
+def execute_anansi_strategy_strategy():
+    anansi_strategy_strategy = anansi_strategy.execute_strategy()
+    return anansi_strategy_strategy
