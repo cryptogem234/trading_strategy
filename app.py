@@ -30,18 +30,20 @@ anansi_strategy = pd.DataFrame(columns=col_list)
 # Define a list of dictionaries for each table
 tables = [
     {'id': 'beta_baller', 'df': beta_baller, 'button_id': 'refresh-button1', 'name': '1. Beta Baller'},
-    {'id': 'short_volatility', 'df': short_volatility, 'button_id': 'refresh-button2', 'name': '2. Short Volatility'},
-    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button3', 'name': '3. WAM FTLT'},
-    {'id': 'holy_grail', 'df': holy_grail, 'button_id': 'refresh-button4', 'name': '4. Holy Grail'},
-    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button5', 'name': '5. Simple 20d BND vs 60d SH'},
+    {'id': 'bnd_20d_sh_60d', 'df': bnd_20d_sh_60d, 'button_id': 'refresh-button2','name': '2. Simple 20d BND vs 60d SH'},
+    {'id': 'short_volatility', 'df': short_volatility, 'button_id': 'refresh-button3', 'name': '3. Short Volatility'},
+    {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button4', 'name': '4. Short Volatility SVXY'},
+    {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button5', 'name': '5. TQQQ or Not'},
     {'id': 'wmdyn_ftlt', 'df': wmdyn_ftlt, 'button_id': 'refresh-button6', 'name': '6. WMDYN FTLT'},
 
-    {'id': 'tqqq_or_not', 'df': tqqq_or_not, 'button_id': 'refresh-button7', 'name': '1. TQQQ or Not'},
-    {'id': 'short_volatility_svxy', 'df': short_volatility_svxy, 'button_id': 'refresh-button8', 'name': '2. Short Volatility SVXY'},
-    {'id': 'rat_ftlt', 'df': rat_ftlt, 'button_id': 'refresh-button9', 'name': '3. RAT FTLT'},
-    {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button10', 'name': '4. Nothing but Bonds'},
-    {'id': 'medium_time_frame_switches', 'df': medium_time_frame_switches, 'button_id': 'refresh-button11', 'name': '5. Medium Time Frame Switches'},
-    {'id': 'anansi_strategy', 'df': anansi_strategy, 'button_id': 'refresh-button12', 'name': '6. Anansi Portfolio'},
+    {'id': 'anansi_strategy', 'df': anansi_strategy, 'button_id': 'refresh-button7', 'name': '7. Anansi Portfolio'},
+
+    {'id': 'wam_ftlt', 'df': wam_ftlt, 'button_id': 'refresh-button8', 'name': '1. WAM FTLT'},
+    {'id': 'holy_grail', 'df': holy_grail, 'button_id': 'refresh-button9', 'name': '2. Holy Grail'},
+    {'id': 'rat_ftlt', 'df': rat_ftlt, 'button_id': 'refresh-button10', 'name': '3. RAT FTLT'},
+    {'id': 'nothing_but_bonds', 'df': nothing_but_bonds, 'button_id': 'refresh-button11', 'name': '4. Nothing but Bonds'},
+    {'id': 'medium_time_frame_switches', 'df': medium_time_frame_switches, 'button_id': 'refresh-button12', 'name': '5. Medium Time Frame Switches'},
+
 ]
 
 # Define layout dynamically
@@ -67,7 +69,7 @@ for idx, table in enumerate(tables):
     ])
 
     # Insert sub-heading after Table 5
-    if idx == 5:
+    if idx == 6:
         layout.append(html.H2("-----Model Portfolios-------"))
 
 # Define callbacks dynamically
