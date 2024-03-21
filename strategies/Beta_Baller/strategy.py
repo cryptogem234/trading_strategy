@@ -25,9 +25,8 @@ def execute_strategy():
     stock_tech_full_data, stock_tech_summ_data = get_technical_data()
 
     #stock_tech_full_data.to_csv('stock_tech_full_data.csv')
-    # stock_tech_full_data = pd.read_csv('stock_tech_full_data.csv')
-    # stock_tech_summ_data = stock_tech_full_data[stock_tech_full_data['date']=='2022-11-15']
-
+    #stock_tech_full_data = pd.read_csv('stock_tech_full_data.csv')
+    #stock_tech_summ_data = stock_tech_full_data[stock_tech_full_data['date']=='2024-03-20']
 
     df = stock_tech_summ_data.copy()
 
