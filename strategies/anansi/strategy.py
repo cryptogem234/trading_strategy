@@ -5,6 +5,7 @@ from strategies.anansi.frontrunner_mild_tqqq import frontrunner_mild_tqqq
 from strategies.anansi.moderated_wmdyn_ftlt import moderated_wmdyn_ftlt
 from strategies.anansi.frontrunner_200d_inverse import frontrunner_200d_inverse
 from strategies.anansi.indecent_vixation import indecent_vixation
+from strategies.anansi.beta_baller_cleaned_up import beta_baller_cleaned_up
 pd.options.display.max_columns = None
 pd.options.display.max_rows = None
 
@@ -31,8 +32,8 @@ def execute_strategy():
     stock_tech_full_data, stock_tech_summ_data = get_technical_data()
 
     #stock_tech_full_data.to_csv('stock_tech_full_data.csv')
-    # stock_tech_full_data = pd.read_csv('stock_tech_full_data.csv')
-    # stock_tech_summ_data = stock_tech_full_data[stock_tech_full_data['date']=='2022-11-15']
+    #stock_tech_full_data = pd.read_csv('stock_tech_full_data.csv')
+    #stock_tech_summ_data = stock_tech_full_data[stock_tech_full_data['date']=='2024-03-19']
 
     df = stock_tech_summ_data.copy()
 
@@ -59,7 +60,11 @@ def execute_strategy():
         alloc_df4['strategy_name'] = 'Indecent VIXation V2 | 2011-10-18'
         alloc_df4['pct_alloc'] = (1 / alloc_df4['ticker'].count() * 100).round(0)
 
-        alloc_df = pd.concat([alloc_df1, alloc_df2, alloc_df3, alloc_df4], ignore_index=True, sort=False)
+        alloc_df5 = beta_baller_cleaned_up(df)
+        alloc_df5['strategy_name'] = 'Beta Baller Anti-Twitch | Cleaned Up | Anansi | 2014-01-04'
+        alloc_df5['pct_alloc'] = (1 / alloc_df5['ticker'].count() * 100).round(0)
+
+        alloc_df = pd.concat([alloc_df1, alloc_df2, alloc_df3, alloc_df4, alloc_df5], ignore_index=True, sort=False)
 
     curr_alloc_df = alloc_df[['strategy_name', 'date', 'ticker', 'close', 'PCTRET', 'pct_alloc']]
     curr_alloc_df['close'] = curr_alloc_df['close'].round(2)
