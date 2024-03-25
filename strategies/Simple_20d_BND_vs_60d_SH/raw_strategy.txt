@@ -1,35 +1,29 @@
 (defsymphony
- "Simple 20d BND vs 60d SH"
+ "$$$ Simple 20d BND vs 60d SH | VXX edition (no k1)"
  {:rebalance-threshold 0.05}
  (weight-equal
   [(group
     "20d BND vs 60d SH v1"
     [(weight-equal
       [(if
-        (> (rsi "SPY" {:window 60}) 61)
-        [(weight-equal [(asset "VIXY") (asset "BIL")])]
+        (> (rsi "QQQ" {:window 10}) 81)
+        [(weight-equal [(asset "VXX")])]
         [(weight-equal
           [(if
-            (> (rsi "QQQ" {:window 10}) 81)
-            [(weight-equal [(asset "VIXY") (asset "BIL")])]
+            (> (rsi "SPY" {:window 10}) 80)
+            [(weight-equal [(asset "VXX")])]
             [(weight-equal
               [(if
-                (> (rsi "SPY" {:window 10}) 80)
-                [(weight-equal [(asset "VIXY") (asset "BIL")])]
+                (< (rsi "TQQQ" {:window 10}) 32)
+                [(weight-equal [(asset "TECL")])]
                 [(weight-equal
                   [(if
-                    (< (rsi "TQQQ" {:window 10}) 32)
-                    [(weight-equal
-                      [(group
-                        "Oversold - TQQQ"
-                        [(weight-equal [(asset "TECL")])])])]
+                    (< (rsi "SPY" {:window 10}) 30)
+                    [(weight-equal [(asset "UPRO")])]
                     [(weight-equal
                       [(if
-                        (< (rsi "SPY" {:window 10}) 30)
-                        [(weight-equal
-                          [(group
-                            "Oversold - UPRO"
-                            [(weight-equal [(asset "UPRO")])])])]
+                        (> (rsi "SPY" {:window 60}) 61)
+                        [(asset "SPY")]
                         [(weight-equal
                           [(if
                             (<
@@ -40,8 +34,7 @@
                                 (>
                                  (cumulative-return "TQQQ" {:window 1})
                                  5.5)
-                                [(weight-equal
-                                  [(asset "VIXY") (asset "BIL")])]
+                                [(weight-equal [(asset "VXX")])]
                                 [(weight-equal
                                   [(group
                                     "20d BND vs 60d SH"

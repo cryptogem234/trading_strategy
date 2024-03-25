@@ -26,24 +26,24 @@ def execute_strategy():
     stock_tech_full_data, stock_tech_summ_data = get_technical_data()
     df = stock_tech_summ_data
 
-    if df['RSI_60'][df['ticker'] == 'SPY'].values[0] > 61:
-        alloc_df = df[df['ticker'].isin(['VIXY','BIL'])]
+    if df['RSI_10'][df['ticker'] == 'QQQ'].values[0] > 81:
+        alloc_df = df[df['ticker'].isin(['VXX'])]
     else:
-        if df['RSI_10'][df['ticker'] == 'QQQ'].values[0] > 81:
-            alloc_df = df[df['ticker'].isin(['VIXY', 'BIL'])]
+        if df['RSI_10'][df['ticker'] == 'SPY'].values[0] > 80:
+            alloc_df = df[df['ticker'].isin(['VXX'])]
         else:
-            if df['RSI_10'][df['ticker'] == 'SPY'].values[0] > 80:
-                alloc_df = df[df['ticker'].isin(['VIXY', 'BIL'])]
+            if df['RSI_10'][df['ticker'] == 'TQQQ'].values[0] < 32:
+                alloc_df = df[df['ticker'].isin(['TECL'])]
             else:
-                if df['RSI_10'][df['ticker'] == 'TQQQ'].values[0] < 32:
-                    alloc_df = df[df['ticker'].isin(['TECL'])]
+                if df['RSI_10'][df['ticker'] == 'SPY'].values[0] < 30:
+                    alloc_df = df[df['ticker'].isin(['UPRO'])]
                 else:
-                    if df['RSI_10'][df['ticker'] == 'SPY'].values[0] < 30:
-                        alloc_df = df[df['ticker'].isin(['UPRO'])]
+                    if df['RSI_60'][df['ticker'] == 'SPY'].values[0] > 61:
+                        alloc_df = df[df['ticker'].isin(['SPY'])]
                     else:
                         if df['CUMR_6'][df['ticker'] == 'TQQQ'].values[0] < -0.105:
-                            if df['CUMR_1'][df['ticker'] == 'TQQQ'].values[0] < 0.055:
-                                alloc_df = df[df['ticker'].isin(['VIXY', 'BIL'])]
+                            if df['CUMR_1'][df['ticker'] == 'TQQQ'].values[0] > 0.055:
+                                alloc_df = df[df['ticker'].isin(['VXX'])]
                             else:
                                 if df['RSI_20'][df['ticker'] == 'BND'].values[0] > df['RSI_60'][df['ticker'] == 'SH'].values[0]:
                                     if df['close'][df['ticker'] == 'SPY'].values[0] > df['SMA_200'][df['ticker'] == 'SPY'].values[0]:
